@@ -13,3 +13,5 @@ The classification algorithms that we will be using are :
 * Neural Network
 * Random forest
 * Support vector machines
+
+dataset used : https://archive.ics.uci.edu/ml/datasets/Raisin+Dataset
