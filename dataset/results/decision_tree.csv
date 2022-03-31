@@ -1,0 +1,7 @@
+"name";"decision_tree_results"
+"without normalization on test data";0,853333333333333
+"with z normalization on test data";0,853333333333333
+"with z log normalization on test data";0,853333333333333
+"k fold crossvalidation without normalization";0,843333333333333
+"k fold crossvalidation with z normalization";0,843333333333333
+"k fold crossvalidation with z log normalization";0,843333333333333

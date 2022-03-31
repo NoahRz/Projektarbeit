@@ -1,0 +1,7 @@
+"name";"random_forest_results"
+"without normalization on test data";0,5
+"with z normalization on test data";0,1333333
+"with z log normalization on test data";0,1366667
+"k fold crossvalidation without normalization";0,4966667
+"k fold crossvalidation with z normalization";0,1322222
+"k fold crossvalidation with z log normalization";0

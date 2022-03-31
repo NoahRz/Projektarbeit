@@ -1,0 +1,314 @@
+---
+title: "knn"
+output: html_document
+---
+
+# Import the packages
+```{r}
+library(tidyverse)
+library(dplyr)
+library(class)
+library(caret)
+```
+
+# Import train and test data
+
+```{r}
+train_data <- read.csv2("./dataset/data_transformed/Raisin_transformed_train_data.csv", sep=";", dec=",")
+test_data <- read.csv2("./dataset/data_transformed/Raisin_transformed_test_data.csv", sep=";", dec=",")
+```
+
+```{r}
+train_data$Class = as.factor(train_data$Class)
+test_data$Class = as.factor(test_data$Class)
+```
+
+# K-nearest neighbor
+
+```{r}
+train_target_category <- train_data[, ncol(train_data)]
+test_target_category <- test_data[, ncol(test_data)]
+```
+
+## Without normalization 
+We build a knn with the unnormalized attributes
+```{r}
+# Columns that will be considered during the classification
+columns_without_normalization = c("Area",
+                                  "MajorAxisLength",
+                                  "MinorAxisLength",
+                                  "Eccentricity",
+                                  "ConvexArea",
+                                  "Extent",
+                                  "Perimeter")
+```
+
+```{r}
+train_data_without_normalization <- train_data %>% select(columns_without_normalization)
+test_data_without_normalization <- test_data %>% select(columns_without_normalization)
+```
+
+```{r}
+# Predict on the train data 
+pr_train <- knn(train_data_without_normalization,train_data_without_normalization,cl=train_target_category,k=3)
+```
+
+```{r}
+# Predict on the test data
+pr_test <- knn(train_data_without_normalization,test_data_without_normalization,cl=train_target_category,k=3)
+```
+
+```{r}
+confusionMatrix(pr_train,train_target_category)
+```
+
+```{r}
+conf_matrix <- confusionMatrix(pr_test,test_target_category)
+conf_matrix
+```
+
+```{r}
+accuracy_without_normalization_on_test_data <- conf_matrix[["overall"]][["Accuracy"]]
+```
+
+## With z-normalization
+We build a knn with the z-normalized attributes
+```{r}
+# Columns that will be considered during the classification
+columns_with_z_normalization = c("z_transformed_Area",
+                                 "z_transformed_MajorAxisLength",
+                                 "z_transformed_MinorAxisLength",
+                                 "z_transformed_Eccentricity",
+                                 "z_transformed_ConvexArea",
+                                 "z_transformed_Extent",
+                                 "z_transformed_Perimeter")
+```
+
+```{r}
+train_data_with_z_normalization <- train_data %>% select(columns_with_z_normalization)
+test_data_with_z_normalization <- test_data %>% select(columns_with_z_normalization)
+```
+
+```{r}
+# Predict on the train data 
+pr_train <- knn(train_data_with_z_normalization,train_data_with_z_normalization,cl=train_target_category,k=3)
+```
+
+```{r}
+# Predict on the test data
+pr_test <- knn(train_data_with_z_normalization,test_data_with_z_normalization,cl=train_target_category,k=3)
+```
+
+```{r}
+confusionMatrix(pr_train,train_target_category)
+```
+
+```{r}
+conf_matrix <- confusionMatrix(pr_test,test_target_category)
+conf_matrix
+```
+
+```{r}
+accuracy_with_z_normalization_on_test_data <-conf_matrix[["overall"]][["Accuracy"]]
+```
+
+## With z-log normalisation
+We build a knn with the z-log normalized attributes
+```{r}
+# Columns that will be considered during the classification
+columns_with_z_log_normalization = c("z_log_transformed_Area",
+                                     "z_log_transformed_MajorAxisLength",
+                                     "z_log_transformed_MinorAxisLength",
+                                     "z_log_transformed_Eccentricity",
+                                     "z_log_transformed_ConvexArea",
+                                     "z_log_transformed_Extent",
+                                     "z_log_transformed_Perimeter")
+```
+
+```{r}
+train_data_with_z_log_normalization <- train_data %>% select(columns_with_z_log_normalization)
+test_data_with_z_log_normalization <- test_data %>% select(columns_with_z_log_normalization)
+```
+
+```{r}
+# Predict on the train data 
+pr_train <- knn(train_data_with_z_log_normalization,train_data_with_z_log_normalization,cl=train_target_category,k=3)
+```
+
+```{r}
+# Predict on the test data
+pr_test <- knn(train_data_with_z_log_normalization,test_data_with_z_log_normalization,cl=train_target_category,k=3)
+```
+
+```{r}
+confusionMatrix(pr_train,train_target_category)
+```
+
+```{r}
+conf_matrix <- confusionMatrix(pr_test,test_target_category)
+conf_matrix
+```
+
+
+```{r}
+accuracy_with_z_log_normalization_on_test_data <-conf_matrix[["overall"]][["Accuracy"]]
+```
+
+# Cross-Validation
+
+```{r}
+data_cross_validation <- read.csv2("./dataset/data_transformed/data_for_cross_validation.csv", sep=";", dec=",")
+data_cross_validation$Class = as.factor(data_cross_validation$Class)
+```
+
+```{r}
+K <- max(data_cross_validation$k)
+```
+
+## Without normalization
+
+
+```{r}
+error_list <- c()
+for (i in 1:K){
+  train_data_cross_validation <- data_cross_validation[data_cross_validation$k != i,]
+  test_data_cross_validation <- data_cross_validation[data_cross_validation$k == i,]
+  
+  train_target_category <- train_data_cross_validation[, ncol(train_data_cross_validation)-1]
+  test_target_category <- test_data_cross_validation[, ncol(test_data_cross_validation)-1]
+  
+  train_data_cross_validation <- train_data_cross_validation %>% select(columns_without_normalization)
+  test_data_cross_validation <- test_data_cross_validation %>% select(columns_without_normalization)
+  
+  pr_test <- knn(train_data_cross_validation, test_data_cross_validation, cl=train_target_category, k=3)
+  
+  conf_mat <- confusionMatrix(pr_test, test_target_category)
+  
+  misclassification_rate <- 1 - conf_mat[["overall"]][["Accuracy"]]
+  error_list <- c(error_list, misclassification_rate)
+}
+
+error_list
+```
+
+
+```{r}
+mean(error_list)
+```
+```{r}
+mean_accuracy <- 1 - mean(error_list)
+mean_accuracy
+```
+
+```{r}
+accuracy_k_fold_crossvalidation_without_normalization <- mean_accuracy
+```
+
+## With Z-normalization
+
+```{r}
+error_list <- c()
+for (i in 1:K){
+  train_data_cross_validation <- data_cross_validation[data_cross_validation$k != i,]
+  test_data_cross_validation <- data_cross_validation[data_cross_validation$k == i,]
+  
+  train_target_category <- train_data_cross_validation[, ncol(train_data_cross_validation)-1]
+  test_target_category <- test_data_cross_validation[, ncol(test_data_cross_validation)-1]
+  
+  train_data_cross_validation <- train_data_cross_validation %>% select(columns_with_z_normalization)
+  test_data_cross_validation <- test_data_cross_validation %>% select(columns_with_z_normalization)
+  
+  pr_test <- knn(train_data_cross_validation, test_data_cross_validation, cl=train_target_category, k=3)
+  
+  conf_mat <- confusionMatrix(pr_test, test_target_category)
+  
+  misclassification_rate <- 1 - conf_mat[["overall"]][["Accuracy"]]
+  error_list <- c(error_list, misclassification_rate)
+}
+
+error_list
+```
+
+
+```{r}
+mean(error_list)
+```
+
+```{r}
+mean_accuracy <- 1 - mean(error_list)
+mean_accuracy
+```
+
+```{r}
+accuracy_k_fold_crossvalidation_with_z_normalization <- mean_accuracy
+```
+
+## With Z-log normalization
+
+```{r}
+error_list <- c()
+for (i in 1:K){
+  train_data_cross_validation <- data_cross_validation[data_cross_validation$k != i,]
+  test_data_cross_validation <- data_cross_validation[data_cross_validation$k == i,]
+  
+  train_target_category <- train_data_cross_validation[, ncol(train_data_cross_validation)-1]
+  test_target_category <- test_data_cross_validation[, ncol(test_data_cross_validation)-1]
+  
+  train_data_cross_validation <- train_data_cross_validation %>% select(columns_with_z_log_normalization)
+  test_data_cross_validation <- test_data_cross_validation %>% select(columns_with_z_log_normalization)
+  
+  pr_test <- knn(train_data_cross_validation, test_data_cross_validation, cl=train_target_category, k=3)
+  
+  conf_mat <- confusionMatrix(pr_test, test_target_category)
+  
+  misclassification_rate <- 1 - conf_mat[["overall"]][["Accuracy"]]
+  error_list <- c(error_list, misclassification_rate)
+}
+
+error_list
+```
+
+```{r}
+mean(error_list)
+```
+
+```{r}
+mean_accuracy <- 1 - mean(error_list)
+mean_accuracy
+```
+
+```{r}
+accuracy_k_fold_crossvalidation_with_z_log_normalization <- mean_accuracy
+```
+
+# Write the results into a file
+We write all the results into a file so that we can do a summary in the evaluation_phase.Rmd file
+
+```{r}
+knn <- c(accuracy_without_normalization_on_test_data,
+                   accuracy_with_z_normalization_on_test_data,
+                   accuracy_with_z_log_normalization_on_test_data,
+                   accuracy_k_fold_crossvalidation_without_normalization,
+                   accuracy_k_fold_crossvalidation_with_z_normalization,
+                   accuracy_k_fold_crossvalidation_with_z_log_normalization )
+
+name <- c("without normalization on test data",
+          "with z normalization on test data",
+          "with z log normalization on test data",
+          "k fold crossvalidation without normalization",
+          "k fold crossvalidation with z normalization",
+          "k fold crossvalidation with z log normalization" )
+
+df <- data.frame(name, knn)
+```
+
+```{r}
+df
+```
+
+```{r}
+write.csv2(df, file="./dataset/results/knn.csv", row.names = FALSE)
+```
+
+
+

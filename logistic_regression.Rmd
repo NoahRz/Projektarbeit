@@ -1,0 +1,308 @@
+---
+title: "Logistic_regression"
+output: html_document
+---
+
+# Import the packages
+```{r}
+library(tidyverse)
+library(dplyr)
+library(caret)
+```
+
+
+# Import train and test data
+
+```{r}
+train_data <- read.csv2("./dataset/data_transformed/Raisin_transformed_train_data.csv", sep=";", dec=",")
+test_data <- read.csv2("./dataset/data_transformed/Raisin_transformed_test_data.csv", sep=";", dec=",")
+```
+
+```{r}
+train_data$Class = as.factor(train_data$Class)
+test_data$Class = as.factor(test_data$Class)
+```
+
+# Logistic regression
+
+## Without normalization
+We build a logistic regression with the unnormalized attributes
+```{r}
+model_withtout_normalization <- glm(Class ~ Area +
+                                      MajorAxisLength +
+                                      MinorAxisLength +
+                                      Eccentricity +
+                                      ConvexArea +
+                                      Extent +
+                                      Perimeter,
+                                    family=binomial(link='logit'),
+                                    data=train_data)
+
+summary(model_withtout_normalization)
+```
+
+```{r}
+probabs_without_normalization <- predict(model_withtout_normalization, train_data, type='response') 
+
+preds_without_normalization <- ifelse(probabs_without_normalization > 0.5, "Kecimen", "Besni")
+
+confusionMatrix(factor(preds_without_normalization), train_data$Class)
+```
+
+```{r}
+probabs_without_normalization <- predict(model_withtout_normalization, test_data, type='response') 
+
+preds_without_normalization <- ifelse(probabs_without_normalization > 0.5, "Kecimen", "Besni")
+
+conf_matrix <- confusionMatrix(factor(preds_without_normalization), test_data$Class)
+conf_matrix
+```
+
+```{r}
+accuracy_without_normalization_on_test_data <- conf_matrix[["overall"]][["Accuracy"]]
+```
+
+## With z-normalization
+We build a logistic regression with the z-normalized attributes
+```{r}
+model_with_z_normalization <-  glm(Class ~ z_transformed_Area +
+                                     z_transformed_MajorAxisLength +
+                                     z_transformed_MinorAxisLength +
+                                     z_transformed_Eccentricity +
+                                     z_transformed_ConvexArea +
+                                     z_transformed_Extent +
+                                     z_transformed_Perimeter,
+                                   family=binomial(link='logit'),
+                                   data=train_data)
+
+summary(model_with_z_normalization)
+```
+
+```{r}
+probabs_with_z_normalization <- predict(model_with_z_normalization, train_data, type='response') 
+
+preds_with_z_normalization <- ifelse(probabs_with_z_normalization > 0.5,  "Kecimen", "Besni")
+
+confusionMatrix(factor(preds_with_z_normalization), train_data$Class)
+```
+
+```{r}
+probabs_with_z_normalization <- predict(model_with_z_normalization, test_data, type='response') 
+
+preds_with_z_normalization <- ifelse(probabs_with_z_normalization > 0.5,  "Kecimen", "Besni")
+
+conf_matrix <- confusionMatrix(factor(preds_with_z_normalization), test_data$Class)
+conf_matrix
+```
+
+```{r}
+accuracy_with_z_normalization_on_test_data <-conf_matrix[["overall"]][["Accuracy"]]
+```
+
+## With z-log normalization
+We build a logistic regression with the z-log normalized attributes
+```{r}
+model_with_z_log_normalization <- glm(Class ~ z_log_transformed_Area +
+                                        z_log_transformed_MajorAxisLength +
+                                        z_log_transformed_MinorAxisLength +
+                                        z_log_transformed_Eccentricity +
+                                        z_log_transformed_ConvexArea +
+                                        z_log_transformed_Extent +
+                                        z_log_transformed_Perimeter,
+                                      family=binomial(link='logit'),
+                                      data=train_data)
+
+summary(model_with_z_log_normalization)
+```
+
+```{r}
+probabs_with_z_log_normalization <- predict(model_with_z_log_normalization, train_data, type='response') 
+
+preds_with_z_log_normalization <- ifelse(probabs_with_z_log_normalization > 0.5,  "Kecimen", "Besni")
+
+confusionMatrix(factor(preds_with_z_log_normalization), train_data$Class)
+```
+
+```{r}
+probabs_with_z_log_normalization <- predict(model_with_z_log_normalization, test_data, type='response') 
+
+preds_with_z_log_normalization <- ifelse(probabs_with_z_log_normalization > 0.5,  "Kecimen", "Besni")
+
+conf_matrix <- confusionMatrix(factor(preds_with_z_log_normalization), test_data$Class)
+conf_matrix
+```
+
+```{r}
+accuracy_with_z_log_normalization_on_test_data <-conf_matrix[["overall"]][["Accuracy"]]
+```
+
+# Cross-Validation
+
+```{r}
+data_cross_validation <- read.csv2("./dataset/data_transformed/data_for_cross_validation.csv", sep=";", dec=",")
+data_cross_validation$Class = as.factor(data_cross_validation$Class)
+```
+
+```{r}
+K <- max(data_cross_validation$k)
+```
+
+## Without normalization
+
+```{r}
+error_list <- c()
+for (i in 1:K){
+  model <- glm(Class ~ Area +
+                 MajorAxisLength +
+                 MinorAxisLength +
+                 Eccentricity +
+                 ConvexArea +
+                 Extent +
+                 Perimeter,
+               family=binomial(link='logit'),
+               data=data_cross_validation[data_cross_validation$k != i,])
+
+  test_data_cross_validation <- data_cross_validation[data_cross_validation$k == i,]
+  
+  probabs <- predict(model, test_data_cross_validation, type='response') 
+  
+  preds <- ifelse(probabs > 0.5,  "Kecimen", "Besni")
+  
+  conf_mat <- confusionMatrix(test_data_cross_validation$Class, factor(preds))
+  
+  misclassification_rate <- 1 - conf_mat[["overall"]][["Accuracy"]]
+  error_list <- c(error_list, misclassification_rate)
+}
+
+error_list
+```
+
+
+```{r}
+mean(error_list)
+```
+
+```{r}
+mean_accuracy <- 1 - mean(error_list)
+mean_accuracy
+```
+
+```{r}
+accuracy_k_fold_crossvalidation_without_normalization <- mean_accuracy
+```
+
+## With Z-normalization
+
+```{r}
+error_list <- c()
+for (i in 1:K){
+  model <- glm(Class ~ z_transformed_Area +
+                 z_transformed_MajorAxisLength +
+                 z_transformed_MinorAxisLength +
+                 z_transformed_Eccentricity +
+                 z_transformed_ConvexArea +
+                 z_transformed_Extent +
+                 z_transformed_Perimeter,
+               family=binomial(link='logit'),
+               data=data_cross_validation[data_cross_validation$k != i,])
+
+  test_data_cross_validation <- data_cross_validation[data_cross_validation$k == i,]
+  
+  probabs <- predict(model, test_data_cross_validation, type='response') 
+  
+  preds <- ifelse(probabs > 0.5, "Kecimen", "Besni")
+  
+  conf_mat <- confusionMatrix(factor(preds), factor(test_data_cross_validation$Class))
+  
+  misclassification_rate <- 1 - conf_mat[["overall"]][["Accuracy"]]
+  error_list <- c(error_list, misclassification_rate)
+}
+
+error_list
+```
+
+
+```{r}
+mean(error_list)
+```
+
+```{r}
+mean_accuracy <- 1 - mean(error_list)
+mean_accuracy
+```
+
+```{r}
+accuracy_k_fold_crossvalidation_with_z_normalization <- mean_accuracy
+```
+
+## With Z-log normalization
+
+```{r}
+error_list <- c()
+for (i in 1:K){
+  model <- glm(Class ~ z_log_transformed_Area +
+                 z_log_transformed_MajorAxisLength +
+                 z_log_transformed_MinorAxisLength +
+                 z_log_transformed_Eccentricity +
+                 z_log_transformed_ConvexArea +
+                 z_log_transformed_Extent +
+                 z_log_transformed_Perimeter,
+               family=binomial(link='logit'),
+               data = data_cross_validation[data_cross_validation$k != i,])
+
+  test_data_cross_validation <- data_cross_validation[data_cross_validation$k == i,]
+  
+  probabs <- predict(model, test_data_cross_validation, type='response') 
+  
+  preds <- ifelse(probabs > 0.5,  "Kecimen", "Besni")
+  
+  conf_mat <- confusionMatrix(factor(preds), factor(test_data_cross_validation$Class))
+  
+  misclassification_rate <- 1 - conf_mat[["overall"]][["Accuracy"]]
+  error_list <- c(error_list, misclassification_rate)
+}
+
+error_list
+```
+
+```{r}
+mean(error_list)
+```
+
+```{r}
+mean_accuracy <- 1 - mean(error_list)
+mean_accuracy
+```
+
+```{r}
+accuracy_k_fold_crossvalidation_with_z_log_normalization <- mean_accuracy
+```
+
+# Write the results into a file
+We write all the results into a file so that we can do a summary in the evaluation_phase.Rmd file
+
+```{r}
+logistic_regression_results <- c(accuracy_without_normalization_on_test_data,
+                   accuracy_with_z_normalization_on_test_data,
+                   accuracy_with_z_log_normalization_on_test_data,
+                   accuracy_k_fold_crossvalidation_without_normalization,
+                   accuracy_k_fold_crossvalidation_with_z_normalization,
+                   accuracy_k_fold_crossvalidation_with_z_log_normalization )
+
+name <- c("without normalization on test data",
+          "with z normalization on test data",
+          "with z log normalization on test data",
+          "k fold crossvalidation without normalization",
+          "k fold crossvalidation with z normalization",
+          "k fold crossvalidation with z log normalization" )
+
+df <- data.frame(name, logistic_regression_results)
+```
+
+```{r}
+df
+```
+
+```{r}
+write.csv2(df, file="./dataset/results/logistic_regression.csv", row.names = FALSE)
+```

@@ -1,0 +1,139 @@
+---
+title: "Data preparation phase"
+output: html_document
+---
+
+In this phase, we are going to transform the data, by applying the z-normalization and the z-log normalization. We are also going to prepare the data for cross validation which will be used in the different classification algorithm files.
+
+# 0. Import Library
+
+```{r}
+library("readxl")
+library(referenceIntervals)
+library(dplyr)
+library(caTools) # to split the dataset into training set and test set
+source("./tools/data_preparation_functions.R")
+```
+
+
+# 1. Dataset : Raisin
+
+```{r}
+data <- read_excel("./dataset/Raisin_Dataset/Raisin_Dataset.xlsx")
+data$Class = as.factor(data$Class)
+```
+
+
+# 2. Splitting data into train and test data
+
+```{r}
+sample_data = sample.split(data$Class, SplitRatio = 2/3)
+train_data <- subset(data, sample_data == TRUE)
+test_data <- subset(data, sample_data == FALSE)
+```
+
+
+```{r}
+# count number of each Class in each dataset
+table(train_data$Class)
+table(test_data$Class)
+```
+
+We have the same proportion of Kecimen and Besni in both dataset as the initial dataset.
+
+# 3. Example of Reference limit
+
+As mentioned before, our reference individuals will be the Kecimen variety
+
+```{r}
+reference_individuals <- train_data[train_data$Class == "Kecimen",]
+```
+
+We just do an example of computing the reference limit for the Area attribute, but of course we will have to do this for the other attributes.
+
+
+Example of computing the Reference limit for the Area : 
+
+```{r}
+area_ref_ind <- reference_individuals$Area
+
+ri_area <- ref_intervals(reference_individuals, "Area") # method from data_preparation_functions.R file
+hist(area_ref_ind, probability = T, col = 'grey')
+abline(v=ri_area$Ref_Int, col = 'red', lwd = 2)
+abline(v=ri_area$Conf_Int, col = 'blue', lty = 'dashed', lwd = 2)
+```
+
+
+# 4. Z and Z-log transformation
+Z-transformation (also called standardization or auto-scaling or normalization)
+
+```{r}
+attribute_list <- list("Area",
+                    "MajorAxisLength",
+                    "MinorAxisLength",
+                    "Eccentricity",
+                    "ConvexArea",
+                    "Extent",
+                    "Perimeter")
+```
+
+Here we apply the z-normalization and the z-log normalization to the train data and the test data. For this we calculate the lower_interval and the upper_interval from the reference_individuals (reference_individuals contains only data from the train data). And we use them for the normalization for the train data but also for the test data.
+
+Note: We are supposed to no know the test data, but we also have to normalize them this is why we normalize them with the lower_interval and upper_interval computed with the train data.
+
+See the file data_preparation_functions.R for more information.
+```{r}
+result <- z_transform_and_zlog_transform(train_data, test_data, attribute_list, reference_individuals) # see methods from data_preparation_functions.R file 
+train_data <- result$train_data
+test_data <- result$test_data
+``` 
+
+```{r}
+# We just reorder the attributes, by putting the class attribute and the end
+
+train_data <- train_data[,order(colnames(train_data))]
+train_data <- train_data %>% relocate(Class, .after = last_col())
+
+test_data <- test_data[,order(colnames(test_data))]
+test_data <- test_data %>% relocate(Class, .after = last_col())
+```
+
+## Writting data
+
+We write the train data and test data in 2 separated files so that we can use them in different classification algorithms and also it will be easier to compare the classification algorithms.
+
+```{r}
+write.csv2(train_data, file="./dataset/data_transformed/Raisin_transformed_train_data.csv", row.names = FALSE)
+write.csv2(test_data, file="./dataset/data_transformed/Raisin_transformed_test_data.csv", row.names = FALSE)
+```
+
+# 5. Preparation of another dataset for cross validation
+
+```{r}
+set.seed(123) # so that we have the same sequence each time
+```
+
+```{r}
+data <- rbind(train_data, test_data)
+kecimen <- data[data$Class == "Kecimen",]
+besni <- data[data$Class == "Besni",]
+```
+
+
+```{r}
+kecimen <- prepare_data_for_cross_validation(kecimen) # method from the data_preparation_functions.R file
+besni <- prepare_data_for_cross_validation(besni)
+```
+
+```{r}
+# we check if our k-folds have the same size
+summary(kecimen$k)
+summary(besni$k)
+```
+
+```{r}
+data <- rbind(kecimen, besni)
+write.csv2(data, file="./dataset/data_transformed/data_for_cross_validation.csv", row.names = FALSE)
+```
+
+

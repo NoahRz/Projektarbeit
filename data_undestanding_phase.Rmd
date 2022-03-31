@@ -1,0 +1,114 @@
+---
+title: "Data understanding"
+output: html_document
+---
+
+# 0. Goals of the project
+
+The Goal of this project is to study the impact (influence) of applying a z-normalization or a z-log normalization and to see if there is any benefits in using these transformations for classification tasks (supervised learning).
+
+To do so, we are going to apply the z-normalization and the z-log normalization to the data set, and compare the performances of various classification algorithms when not applying the normalizations, applying the z-normalization and applying the z-log normalization.
+
+The classification algorithms that we will be using are :
+
+* Decision tree
+* knn (k=3)
+* logistic regression
+* Naive Bayes classifier
+* Neural Network
+* Random forest
+* Support vector machines
+
+The goal of this project is to show only whether the use of z-normalization or z-log normalization  is worth it or not, by comparing the result of different classification algorithms when  applying these transformations or not. Therefore, no further tuning of the classification models will be performed in order to be able to compare between different algorithms. The reason for this is that each classification algorithm has its own characteristics and parameters so it would be too complicated to compare between different algorithms.
+
+So for the purpose of this project, only basic parameters will be used.
+
+What result should we expect to validate the use of normalization?
+
+For me, we should at  expect a significant improvement compared to without normalization (ca. 5%)
+
+# 1. Dataset : Raisin
+
+This dataset contains 900 instances of raisins form 2 different varieties (Kecimen and Besni, which grow in Turkey) with 7 morphological features. The varieties are in equal proportion (450 each). These features were extracted from images of the raisins. Features such as :
+
+* Area (Gives the number of pixels within the boundaries of the raisin)
+* MajorAxisLength (Gives the length of the main axis, which is the longest line that can be drawn on the raisin)
+* MinorAxisLength (Gives the length of the small axis, which is the shortest line that can be drawn on the raisin)
+* Eccentricity (It gives a measure of the eccentricity of the ellipse, which has the same moments as raisins)
+* ConvexArea (Gives the number of pixels of the smallest convex shell of the region formed by the raisin)
+* Extent (Gives the ratio of the region formed by the raisin to the total pixels in the bounding box)
+* Perimeter (It measures the environment by calculating the distance between the boundaries of the raisin and the pixels around it)
+
+We have also the attribute "Class" for the variety of each instances.
+
+Link of the data : https://archive.ics.uci.edu/ml/datasets/Raisin+Dataset
+
+
+
+```{r}
+library("readxl")
+data <- read_excel("./dataset/Raisin_Dataset/Raisin_Dataset.xlsx")
+```
+
+```{r}
+data$Class = as.factor(data$Class)
+```
+
+
+```{r}
+summary(data)
+```
+
+# 2. Importing Librairies
+
+```{r}
+library("tidyr")
+source("./tools/data_visualization_functions.R")
+source("./tools/tools.R")
+```
+
+# 3. Visualization of the data
+
+
+```{r}
+draw_boxplot(data) # method from the data_visualization_functions.R file 
+```
+
+We scale the data between 0 and 1 to better compare the distribution of the data
+
+```{r}
+data_normalized <- normalize(data[, 1:7]) # method from the tools.R file 
+data_normalized <- as.data.frame(data_normalized)
+draw_boxplot(data_normalized)
+```
+
+With this box plot, we can detect the multiple outliers for each attributes. But for purpose of this project, we will let them as they are.
+
+
+```{r}
+draw_scatter_matrix(data)
+```
+blue : Kecimen
+red : Besni
+
+Here we can see that the classification of the Kecimen and Besni will be quite challenging because of the overlapping of the 2 classes.
+
+
+```{r}
+draw_barchart(data)
+```
+
+In order to calculate the z-normalization and the z-log normalization, we need to calculate the reference intervals. For that we need to choose the reference individuals (the healthy population) and so to calculate the reference limits with it. Usually the computation of reference limits is done in the medicine domain among the healthy patients but in this case, we can not say which is the healthy population between Kecimen and Besni. Habitually, we would take the class which has more instances as healthy population because in general we have more healthy people than unhealthy, and since here, we have the exact amount of each variety (450 each), we choose arbitrarily the healthy and we will choose "Kecimen". 
+
+In addition, in order to have a good estimation of the reference limits, we need to have more than 120 instances of the reference individuals, which is the case here. ((standard recommendation from the International guidelines (IFCC-CLSI C28-A3))).
+
+We also check if for the reference individuals, we have a unimodal distribution (This is a prerequisite for our project for the normalizations).
+
+```{r}
+reference_individuals <- data[data$Class == "Kecimen",]
+draw_barchart(reference_individuals)
+```
+
+As we can see, it is indeed the case, we have a unimodal distribution. Some are skewed but it's not a problem, it won't be the case anymore when we will apply the z-log normalization.
+
+

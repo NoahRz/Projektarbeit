@@ -1,0 +1,302 @@
+---
+title: "Random forest"
+output: html_document
+---
+
+
+# Import the packages
+```{r}
+library(caret) # for the confusion matrix
+library(randomForest)
+```
+
+
+# Import train and test data
+
+```{r}
+train_data <- read.csv2("./dataset/data_transformed/Raisin_transformed_train_data.csv", sep=";", dec=",")
+test_data <- read.csv2("./dataset/data_transformed/Raisin_transformed_test_data.csv", sep=";", dec=",")
+```
+
+```{r}
+train_data$Class = as.factor(train_data$Class)
+test_data$Class = as.factor(test_data$Class)
+```
+
+# Random forest
+
+```{r}
+set.seed(123) # set the seed so that the outcome can be repeatable
+```
+
+## Without normalization
+We build a random forest with the unnormalized attributes
+```{r}
+rand_forest <- randomForest(Class ~ Area +
+                              MajorAxisLength +
+                              MinorAxisLength +
+                              Eccentricity +
+                              ConvexArea +
+                              Extent +
+                              Perimeter,
+                            data=train_data,
+                            proximity=TRUE)
+print(rand_forest)
+```
+
+```{r}
+# prediction with training data
+predict_train_data <- predict(rand_forest, train_data)
+confusionMatrix(predict_train_data, train_data$Class)
+```
+
+```{r}
+# prediction with test data
+predict_test_data <- predict(rand_forest, test_data)
+conf_matrix <- confusionMatrix(predict_test_data, test_data$Class)
+conf_matrix
+```
+
+```{r}
+accuracy_without_normalization_on_test_data <- conf_matrix[["overall"]][["Accuracy"]]
+```
+
+## With Z-normalization
+We build a random forest with the z-normalized attributes
+```{r}
+rand_forest_z_normalization <- randomForest(Class ~ z_transformed_Area +
+                                              z_transformed_MajorAxisLength +
+                                              z_transformed_MinorAxisLength +
+                                              z_transformed_Eccentricity +
+                                              z_transformed_ConvexArea +
+                                              z_transformed_Extent +
+                                              z_transformed_Perimeter,
+                                            data=train_data,
+                                            proximity=TRUE)
+print(rand_forest_z_normalization)
+```
+
+```{r}
+# prediction with training data
+predict_train_z_normalization <- predict(rand_forest_z_normalization, train_data)
+confusionMatrix(predict_train_z_normalization, train_data$Class)
+```
+
+```{r}
+# prediction with test data
+predict_test_data_z_normalization <- predict(rand_forest_z_normalization, test_data)
+conf_matrix <- confusionMatrix(predict_test_data_z_normalization, test_data$Class)
+conf_matrix
+```
+
+```{r}
+accuracy_with_z_normalization_on_test_data <-conf_matrix[["overall"]][["Accuracy"]]
+```
+
+## With Z-log normalization
+We build a random forest with the z-log normalized attributes
+```{r}
+rand_forest_z_log_normalization <- randomForest(Class ~ z_log_transformed_Area +
+                                                  z_log_transformed_MajorAxisLength +
+                                                  z_log_transformed_MinorAxisLength +
+                                                  z_log_transformed_Eccentricity +
+                                                  z_log_transformed_ConvexArea +
+                                                  z_log_transformed_Extent +
+                                                  z_log_transformed_Perimeter,
+                                                data=train_data,
+                                                proximity=TRUE)
+print(rand_forest_z_log_normalization)
+```
+
+```{r}
+# prediction with training data
+predict_train_z_log_normalization <- predict(rand_forest_z_log_normalization, train_data)
+confusionMatrix(predict_train_z_log_normalization, train_data$Class)
+```
+
+```{r}
+# prediction with test data
+predict_test_data_z_Log_normalization <- predict(rand_forest_z_log_normalization, test_data)
+conf_matrix <- confusionMatrix(predict_test_data_z_Log_normalization, test_data$Class)
+conf_matrix
+```
+
+```{r}
+accuracy_with_z_log_normalization_on_test_data <-conf_matrix[["overall"]][["Accuracy"]]
+```
+
+# Cross-Validation
+
+```{r}
+data_cross_validation <- read.csv2("./dataset/data_transformed/data_for_cross_validation.csv", sep=";", dec=",")
+data_cross_validation$Class = as.factor(data_cross_validation$Class)
+```
+
+```{r}
+K <- max(data_cross_validation$k)
+```
+
+
+## Without normalization
+
+
+```{r}
+error_list <- c()
+for (i in 1:K){
+  model <- randomForest(Class ~ Area +
+                          MajorAxisLength +
+                          MinorAxisLength +
+                          Eccentricity +
+                          ConvexArea +
+                          Extent +
+                          Perimeter,
+                        data=data_cross_validation[data_cross_validation$k != i,],
+                        proximity=TRUE)
+    
+  predict_test_data <- predict(model, data_cross_validation[data_cross_validation$k == i,])
+  conf_mat <- confusionMatrix(data_cross_validation[data_cross_validation$k == i,]$Class, predict_test_data)
+    
+  misclassification_rate <- 1 - conf_mat[["overall"]][["Accuracy"]]
+  error_list <- c(error_list, misclassification_rate)
+}
+
+error_list
+```
+
+
+```{r}
+mean(error_list)
+```
+
+```{r}
+mean_accuracy <- 1 - mean(error_list)
+mean_accuracy
+```
+
+```{r}
+accuracy_k_fold_crossvalidation_without_normalization <- mean_accuracy
+```
+
+## With Z-normalization
+
+
+```{r}
+error_list <- c()
+for (i in 1:K){
+  model <- randomForest(Class ~ z_transformed_Area +
+                          z_transformed_MajorAxisLength +
+                          z_transformed_MinorAxisLength +
+                          z_transformed_Eccentricity +
+                          z_transformed_ConvexArea +
+                          z_transformed_Extent +
+                          z_transformed_Perimeter,
+                        data=data_cross_validation[data_cross_validation$k != i,],
+                        proximity=TRUE)
+
+  predict_test_data <- predict(model, data_cross_validation[data_cross_validation$k == i,])
+  conf_mat <- confusionMatrix(data_cross_validation[data_cross_validation$k == i,]$Class, predict_test_data)
+    
+  misclassification_rate <- 1 - conf_mat[["overall"]][["Accuracy"]]
+  error_list <- c(error_list, misclassification_rate)
+}
+
+error_list
+```
+
+
+```{r}
+mean(error_list)
+```
+
+```{r}
+mean_accuracy <- 1 - mean(error_list)
+mean_accuracy
+```
+
+```{r}
+accuracy_k_fold_crossvalidation_with_z_normalization <- mean_accuracy
+```
+
+## With Z-log normalization
+
+
+```{r}
+error_list <- c()
+for (i in 1:K){
+  model <- randomForest(Class ~ z_log_transformed_Area +
+                          z_log_transformed_MajorAxisLength +
+                          z_log_transformed_MinorAxisLength +
+                          z_log_transformed_Eccentricity +
+                          z_log_transformed_ConvexArea +
+                          z_log_transformed_Extent +
+                          z_log_transformed_Perimeter,
+                        data=data_cross_validation[data_cross_validation$k != i,],
+                        proximity=TRUE)
+
+  predict_test_data <- predict(model, data_cross_validation[data_cross_validation$k == i,])
+  conf_mat <- confusionMatrix(data_cross_validation[data_cross_validation$k == i,]$Class, predict_test_data)
+    
+  misclassification_rate <- 1 - conf_mat[["overall"]][["Accuracy"]]
+  error_list <- c(error_list, misclassification_rate)
+}
+
+error_list
+```
+
+
+```{r}
+mean(error_list)
+```
+
+```{r}
+mean_accuracy <- 1 - mean(error_list)
+mean_accuracy
+```
+
+```{r}
+accuracy_k_fold_crossvalidation_with_z_log_normalization <- mean_accuracy
+```
+
+# Write the results into a file
+We write all the results into a file so that we can do a summary in the evaluation_phase.Rmd file
+
+```{r}
+random_forest_results <- c(accuracy_without_normalization_on_test_data,
+                   accuracy_with_z_normalization_on_test_data,
+                   accuracy_with_z_log_normalization_on_test_data,
+                   accuracy_k_fold_crossvalidation_without_normalization,
+                   accuracy_k_fold_crossvalidation_with_z_normalization,
+                   accuracy_k_fold_crossvalidation_with_z_log_normalization )
+
+name <- c("without normalization on test data",
+          "with z normalization on test data",
+          "with z log normalization on test data",
+          "k fold crossvalidation without normalization",
+          "k fold crossvalidation with z normalization",
+          "k fold crossvalidation with z log normalization" )
+
+df <- data.frame(name, random_forest_results)
+```
+
+```{r}
+df
+```
+
+```{r}
+write.csv2(df, file="./dataset/results/random_forest.csv", row.names = FALSE)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
