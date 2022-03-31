@@ -6,7 +6,7 @@ library(referenceIntervals)
 #' Apply the z-normalization and the z-log normalization to all the attributes of the attribute_list
 #' For this we calculate the lower_interval and the upper_interval from the reference_individuals (reference_individuals contains only data from the train data)
 #' And we use them for the normalization for the train data but also for the test data
-#' Note : We are supposed to no know the test data, but we also have to normalize them this is why we normalize them with the lower_interval and upper_interval computed with the train data
+#' Note : We are not supposed to know the test data, but we also have to normalize them this is why we normalize them with the lower_interval and upper_interval computed with the train data
 #' 
 #' 
 #' @param train_data A data frame
@@ -54,7 +54,7 @@ z_transform_and_zlog_transform <- function(train_data, test_data, attribute_list
 #' ref_intervals(reference_individuals, attribute)
 ref_intervals <-function(reference_individuals, attribute){
   ref_ind <- reference_individuals[[attribute]]
-  return(refLimit(ref_ind, out.rm = FALSE, RI = 'r', CI = 'p'))
+  return(refLimit(ref_ind, out.rm = FALSE, RI = 'r', CI = 'p')) # For the estimation of the reference interval, we use the robust method and we keep the outliers
 }
 
 

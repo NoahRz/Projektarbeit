@@ -210,7 +210,7 @@ svm_model</code></pre>
 ##  SVM-Kernel:  radial 
 ##        cost:  1 
 ## 
-## Number of Support Vectors:  220</code></pre>
+## Number of Support Vectors:  237</code></pre>
 <pre class="r"><code># prediction with training data
 predict_train_data &lt;- predict(svm_model, newdata = train_data)
 confusionMatrix(predict_train_data, train_data$Class)</code></pre>
@@ -218,26 +218,26 @@ confusionMatrix(predict_train_data, train_data$Class)</code></pre>
 ## 
 ##           Reference
 ## Prediction Besni Kecimen
-##    Besni     252      20
-##    Kecimen    48     280
+##    Besni     240      24
+##    Kecimen    60     276
 ##                                           
-##                Accuracy : 0.8867          
-##                  95% CI : (0.8585, 0.9109)
+##                Accuracy : 0.86            
+##                  95% CI : (0.8296, 0.8868)
 ##     No Information Rate : 0.5             
 ##     P-Value [Acc &gt; NIR] : &lt; 2.2e-16       
 ##                                           
-##                   Kappa : 0.7733          
+##                   Kappa : 0.72            
 ##                                           
-##  Mcnemar&#39;s Test P-Value : 0.001059        
+##  Mcnemar&#39;s Test P-Value : 0.0001341       
 ##                                           
-##             Sensitivity : 0.8400          
-##             Specificity : 0.9333          
-##          Pos Pred Value : 0.9265          
-##          Neg Pred Value : 0.8537          
+##             Sensitivity : 0.8000          
+##             Specificity : 0.9200          
+##          Pos Pred Value : 0.9091          
+##          Neg Pred Value : 0.8214          
 ##              Prevalence : 0.5000          
-##          Detection Rate : 0.4200          
-##    Detection Prevalence : 0.4533          
-##       Balanced Accuracy : 0.8867          
+##          Detection Rate : 0.4000          
+##    Detection Prevalence : 0.4400          
+##       Balanced Accuracy : 0.8600          
 ##                                           
 ##        &#39;Positive&#39; Class : Besni           
 ## </code></pre>
@@ -249,28 +249,28 @@ conf_matrix</code></pre>
 ## 
 ##           Reference
 ## Prediction Besni Kecimen
-##    Besni     122      16
-##    Kecimen    28     134
-##                                           
-##                Accuracy : 0.8533          
-##                  95% CI : (0.8082, 0.8914)
-##     No Information Rate : 0.5             
-##     P-Value [Acc &gt; NIR] : &lt; 2e-16         
-##                                           
-##                   Kappa : 0.7067          
-##                                           
-##  Mcnemar&#39;s Test P-Value : 0.09725         
-##                                           
-##             Sensitivity : 0.8133          
-##             Specificity : 0.8933          
-##          Pos Pred Value : 0.8841          
-##          Neg Pred Value : 0.8272          
-##              Prevalence : 0.5000          
-##          Detection Rate : 0.4067          
-##    Detection Prevalence : 0.4600          
-##       Balanced Accuracy : 0.8533          
-##                                           
-##        &#39;Positive&#39; Class : Besni           
+##    Besni     130      13
+##    Kecimen    20     137
+##                                          
+##                Accuracy : 0.89           
+##                  95% CI : (0.849, 0.9231)
+##     No Information Rate : 0.5            
+##     P-Value [Acc &gt; NIR] : &lt;2e-16         
+##                                          
+##                   Kappa : 0.78           
+##                                          
+##  Mcnemar&#39;s Test P-Value : 0.2963         
+##                                          
+##             Sensitivity : 0.8667         
+##             Specificity : 0.9133         
+##          Pos Pred Value : 0.9091         
+##          Neg Pred Value : 0.8726         
+##              Prevalence : 0.5000         
+##          Detection Rate : 0.4333         
+##    Detection Prevalence : 0.4767         
+##       Balanced Accuracy : 0.8900         
+##                                          
+##        &#39;Positive&#39; Class : Besni          
 ## </code></pre>
 <pre class="r"><code>accuracy_without_normalization_on_test_data &lt;- conf_matrix[[&quot;overall&quot;]][[&quot;Accuracy&quot;]]</code></pre>
 </div>
@@ -301,7 +301,7 @@ print(svm_model_z_normalization)</code></pre>
 ##  SVM-Kernel:  radial 
 ##        cost:  1 
 ## 
-## Number of Support Vectors:  220</code></pre>
+## Number of Support Vectors:  237</code></pre>
 <pre class="r"><code># prediction with training data
 predict_train_z_normalization &lt;- predict(svm_model_z_normalization, train_data)
 confusionMatrix(predict_train_z_normalization, train_data$Class)</code></pre>
@@ -309,26 +309,26 @@ confusionMatrix(predict_train_z_normalization, train_data$Class)</code></pre>
 ## 
 ##           Reference
 ## Prediction Besni Kecimen
-##    Besni     252      20
-##    Kecimen    48     280
+##    Besni     240      24
+##    Kecimen    60     276
 ##                                           
-##                Accuracy : 0.8867          
-##                  95% CI : (0.8585, 0.9109)
+##                Accuracy : 0.86            
+##                  95% CI : (0.8296, 0.8868)
 ##     No Information Rate : 0.5             
 ##     P-Value [Acc &gt; NIR] : &lt; 2.2e-16       
 ##                                           
-##                   Kappa : 0.7733          
+##                   Kappa : 0.72            
 ##                                           
-##  Mcnemar&#39;s Test P-Value : 0.001059        
+##  Mcnemar&#39;s Test P-Value : 0.0001341       
 ##                                           
-##             Sensitivity : 0.8400          
-##             Specificity : 0.9333          
-##          Pos Pred Value : 0.9265          
-##          Neg Pred Value : 0.8537          
+##             Sensitivity : 0.8000          
+##             Specificity : 0.9200          
+##          Pos Pred Value : 0.9091          
+##          Neg Pred Value : 0.8214          
 ##              Prevalence : 0.5000          
-##          Detection Rate : 0.4200          
-##    Detection Prevalence : 0.4533          
-##       Balanced Accuracy : 0.8867          
+##          Detection Rate : 0.4000          
+##    Detection Prevalence : 0.4400          
+##       Balanced Accuracy : 0.8600          
 ##                                           
 ##        &#39;Positive&#39; Class : Besni           
 ## </code></pre>
@@ -340,28 +340,28 @@ conf_matrix</code></pre>
 ## 
 ##           Reference
 ## Prediction Besni Kecimen
-##    Besni     122      16
-##    Kecimen    28     134
-##                                           
-##                Accuracy : 0.8533          
-##                  95% CI : (0.8082, 0.8914)
-##     No Information Rate : 0.5             
-##     P-Value [Acc &gt; NIR] : &lt; 2e-16         
-##                                           
-##                   Kappa : 0.7067          
-##                                           
-##  Mcnemar&#39;s Test P-Value : 0.09725         
-##                                           
-##             Sensitivity : 0.8133          
-##             Specificity : 0.8933          
-##          Pos Pred Value : 0.8841          
-##          Neg Pred Value : 0.8272          
-##              Prevalence : 0.5000          
-##          Detection Rate : 0.4067          
-##    Detection Prevalence : 0.4600          
-##       Balanced Accuracy : 0.8533          
-##                                           
-##        &#39;Positive&#39; Class : Besni           
+##    Besni     130      13
+##    Kecimen    20     137
+##                                          
+##                Accuracy : 0.89           
+##                  95% CI : (0.849, 0.9231)
+##     No Information Rate : 0.5            
+##     P-Value [Acc &gt; NIR] : &lt;2e-16         
+##                                          
+##                   Kappa : 0.78           
+##                                          
+##  Mcnemar&#39;s Test P-Value : 0.2963         
+##                                          
+##             Sensitivity : 0.8667         
+##             Specificity : 0.9133         
+##          Pos Pred Value : 0.9091         
+##          Neg Pred Value : 0.8726         
+##              Prevalence : 0.5000         
+##          Detection Rate : 0.4333         
+##    Detection Prevalence : 0.4767         
+##       Balanced Accuracy : 0.8900         
+##                                          
+##        &#39;Positive&#39; Class : Besni          
 ## </code></pre>
 <pre class="r"><code>accuracy_with_z_normalization_on_test_data &lt;-conf_matrix[[&quot;overall&quot;]][[&quot;Accuracy&quot;]]</code></pre>
 </div>
@@ -393,7 +393,7 @@ print(svm_model_z_log_normalization)</code></pre>
 ##  SVM-Kernel:  radial 
 ##        cost:  1 
 ## 
-## Number of Support Vectors:  220</code></pre>
+## Number of Support Vectors:  240</code></pre>
 <pre class="r"><code># prediction with training data
 predict_train_z_log_normalization &lt;- predict(svm_model_z_log_normalization, train_data)
 confusionMatrix(predict_train_z_log_normalization, train_data$Class)</code></pre>
@@ -401,26 +401,26 @@ confusionMatrix(predict_train_z_log_normalization, train_data$Class)</code></pre
 ## 
 ##           Reference
 ## Prediction Besni Kecimen
-##    Besni     252      20
-##    Kecimen    48     280
+##    Besni     237      25
+##    Kecimen    63     275
 ##                                           
-##                Accuracy : 0.8867          
-##                  95% CI : (0.8585, 0.9109)
+##                Accuracy : 0.8533          
+##                  95% CI : (0.8225, 0.8807)
 ##     No Information Rate : 0.5             
 ##     P-Value [Acc &gt; NIR] : &lt; 2.2e-16       
 ##                                           
-##                   Kappa : 0.7733          
+##                   Kappa : 0.7067          
 ##                                           
-##  Mcnemar&#39;s Test P-Value : 0.001059        
+##  Mcnemar&#39;s Test P-Value : 8.006e-05       
 ##                                           
-##             Sensitivity : 0.8400          
-##             Specificity : 0.9333          
-##          Pos Pred Value : 0.9265          
-##          Neg Pred Value : 0.8537          
+##             Sensitivity : 0.7900          
+##             Specificity : 0.9167          
+##          Pos Pred Value : 0.9046          
+##          Neg Pred Value : 0.8136          
 ##              Prevalence : 0.5000          
-##          Detection Rate : 0.4200          
-##    Detection Prevalence : 0.4533          
-##       Balanced Accuracy : 0.8867          
+##          Detection Rate : 0.3950          
+##    Detection Prevalence : 0.4367          
+##       Balanced Accuracy : 0.8533          
 ##                                           
 ##        &#39;Positive&#39; Class : Besni           
 ## </code></pre>
@@ -432,28 +432,28 @@ conf_matrix</code></pre>
 ## 
 ##           Reference
 ## Prediction Besni Kecimen
-##    Besni     121      16
-##    Kecimen    29     134
-##                                           
-##                Accuracy : 0.85            
-##                  95% CI : (0.8045, 0.8884)
-##     No Information Rate : 0.5             
-##     P-Value [Acc &gt; NIR] : &lt; 2e-16         
-##                                           
-##                   Kappa : 0.7             
-##                                           
-##  Mcnemar&#39;s Test P-Value : 0.07364         
-##                                           
-##             Sensitivity : 0.8067          
-##             Specificity : 0.8933          
-##          Pos Pred Value : 0.8832          
-##          Neg Pred Value : 0.8221          
-##              Prevalence : 0.5000          
-##          Detection Rate : 0.4033          
-##    Detection Prevalence : 0.4567          
-##       Balanced Accuracy : 0.8500          
-##                                           
-##        &#39;Positive&#39; Class : Besni           
+##    Besni     130      13
+##    Kecimen    20     137
+##                                          
+##                Accuracy : 0.89           
+##                  95% CI : (0.849, 0.9231)
+##     No Information Rate : 0.5            
+##     P-Value [Acc &gt; NIR] : &lt;2e-16         
+##                                          
+##                   Kappa : 0.78           
+##                                          
+##  Mcnemar&#39;s Test P-Value : 0.2963         
+##                                          
+##             Sensitivity : 0.8667         
+##             Specificity : 0.9133         
+##          Pos Pred Value : 0.9091         
+##          Neg Pred Value : 0.8726         
+##              Prevalence : 0.5000         
+##          Detection Rate : 0.4333         
+##    Detection Prevalence : 0.4767         
+##       Balanced Accuracy : 0.8900         
+##                                          
+##        &#39;Positive&#39; Class : Besni          
 ## </code></pre>
 <pre class="r"><code>accuracy_with_z_log_normalization_on_test_data &lt;-conf_matrix[[&quot;overall&quot;]][[&quot;Accuracy&quot;]]</code></pre>
 </div>
@@ -486,13 +486,13 @@ for (i in 1:K){
 }
 
 error_list</code></pre>
-<pre><code>##  [1] 0.14444444 0.11111111 0.14444444 0.05555556 0.11111111 0.11111111
-##  [7] 0.15555556 0.18888889 0.17777778 0.14444444</code></pre>
+<pre><code>##  [1] 0.1222222 0.1111111 0.1111111 0.1111111 0.1111111 0.1444444 0.1444444
+##  [8] 0.1000000 0.2111111 0.1666667</code></pre>
 <pre class="r"><code>mean(error_list)</code></pre>
-<pre><code>## [1] 0.1344444</code></pre>
+<pre><code>## [1] 0.1333333</code></pre>
 <pre class="r"><code>mean_accuracy &lt;- 1 - mean(error_list)
 mean_accuracy</code></pre>
-<pre><code>## [1] 0.8655556</code></pre>
+<pre><code>## [1] 0.8666667</code></pre>
 <pre class="r"><code>accuracy_k_fold_crossvalidation_without_normalization &lt;- mean_accuracy</code></pre>
 </div>
 <div id="with-z-normalization-1" class="section level2">
@@ -518,13 +518,13 @@ for (i in 1:K){
 }
 
 error_list</code></pre>
-<pre><code>##  [1] 0.14444444 0.11111111 0.14444444 0.05555556 0.11111111 0.11111111
-##  [7] 0.15555556 0.18888889 0.17777778 0.14444444</code></pre>
+<pre><code>##  [1] 0.1222222 0.1111111 0.1111111 0.1111111 0.1111111 0.1444444 0.1444444
+##  [8] 0.1000000 0.2111111 0.1666667</code></pre>
 <pre class="r"><code>mean(error_list)</code></pre>
-<pre><code>## [1] 0.1344444</code></pre>
+<pre><code>## [1] 0.1333333</code></pre>
 <pre class="r"><code>mean_accuracy &lt;- 1 - mean(error_list)
 mean_accuracy</code></pre>
-<pre><code>## [1] 0.8655556</code></pre>
+<pre><code>## [1] 0.8666667</code></pre>
 <pre class="r"><code>accuracy_k_fold_crossvalidation_with_z_normalization &lt;- mean_accuracy</code></pre>
 </div>
 <div id="with-z-log-normalization-1" class="section level2">
@@ -550,13 +550,13 @@ for (i in 1:K){
 }
 
 error_list</code></pre>
-<pre><code>##  [1] 0.14444444 0.12222222 0.14444444 0.06666667 0.11111111 0.10000000
-##  [7] 0.15555556 0.18888889 0.16666667 0.13333333</code></pre>
+<pre><code>##  [1] 0.11111111 0.11111111 0.12222222 0.08888889 0.10000000 0.14444444
+##  [7] 0.13333333 0.10000000 0.21111111 0.15555556</code></pre>
 <pre class="r"><code>mean(error_list)</code></pre>
-<pre><code>## [1] 0.1333333</code></pre>
+<pre><code>## [1] 0.1277778</code></pre>
 <pre class="r"><code>mean_accuracy &lt;- 1 - mean(error_list)
 mean_accuracy</code></pre>
-<pre><code>## [1] 0.8666667</code></pre>
+<pre><code>## [1] 0.8722222</code></pre>
 <pre class="r"><code>accuracy_k_fold_crossvalidation_with_z_log_normalization &lt;- mean_accuracy</code></pre>
 </div>
 </div>
@@ -587,12 +587,12 @@ df &lt;- data.frame(name, support_vector_machines_results)</code></pre>
 ## 5     k fold crossvalidation with z normalization
 ## 6 k fold crossvalidation with z log normalization
 ##   support_vector_machines_results
-## 1                       0.8533333
-## 2                       0.8533333
-## 3                       0.8500000
-## 4                       0.8655556
-## 5                       0.8655556
-## 6                       0.8666667</code></pre>
+## 1                       0.8900000
+## 2                       0.8900000
+## 3                       0.8900000
+## 4                       0.8666667
+## 5                       0.8666667
+## 6                       0.8722222</code></pre>
 <pre class="r"><code>write.csv2(df, file=&quot;./dataset/results/support_vector_machines.csv&quot;, row.names = FALSE)</code></pre>
 </div>
 

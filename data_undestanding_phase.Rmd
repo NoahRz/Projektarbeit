@@ -1,11 +1,11 @@
 ---
-title: "Data understanding"
+title: "Data understanding phase"
 output: html_document
 ---
 
 # 0. Goals of the project
 
-The Goal of this project is to study the impact (influence) of applying a z-normalization or a z-log normalization and to see if there is any benefits in using these transformations for classification tasks (supervised learning).
+The Goal of this project is to study the impact (influence) of applying a z-normalization or a z-log normalization and to see if there is any benefit in using these transformations for classification tasks (supervised learning).
 
 To do so, we are going to apply the z-normalization and the z-log normalization to the data set, and compare the performances of various classification algorithms when not applying the normalizations, applying the z-normalization and applying the z-log normalization.
 
@@ -19,13 +19,13 @@ The classification algorithms that we will be using are :
 * Random forest
 * Support vector machines
 
-The goal of this project is to show only whether the use of z-normalization or z-log normalization  is worth it or not, by comparing the result of different classification algorithms when  applying these transformations or not. Therefore, no further tuning of the classification models will be performed in order to be able to compare between different algorithms. The reason for this is that each classification algorithm has its own characteristics and parameters so it would be too complicated to compare between different algorithms.
+The goal of this project is to show only whether the use of z-normalization or z-log normalization  is worth it or not, by comparing the result of different classification algorithms when  applying these transformations or not. Therefore, no further tuning of the classification models will be performed in order to be able to compare between different algorithms. The reason for this is that each classification algorithm has its own characteristics and parameters so it would be too complicated to compare between different algorithms (we want to evaluate the classification algorithms in the same way on the same data as much as possible).
 
 So for the purpose of this project, only basic parameters will be used.
 
 What result should we expect to validate the use of normalization?
 
-For me, we should at  expect a significant improvement compared to without normalization (ca. 5%)
+For me, we should expect a significant improvement compared to without normalization (ca. 5%)
 
 # 1. Dataset : Raisin
 
@@ -82,7 +82,7 @@ data_normalized <- as.data.frame(data_normalized)
 draw_boxplot(data_normalized)
 ```
 
-With this box plot, we can detect the multiple outliers for each attributes. But for purpose of this project, we will let them as they are.
+With this box plot, we can detect the multiple outliers for each attributes. But for the purpose of this project, we will let them as they are.
 
 
 ```{r}
@@ -92,13 +92,13 @@ blue : Kecimen
 red : Besni
 
 Here we can see that the classification of the Kecimen and Besni will be quite challenging because of the overlapping of the 2 classes.
-
+We can also see correlations between different attributes (e.g. Area and convexArea). These can be dealt in a further analysis. (e.g. feature selection)
 
 ```{r}
 draw_barchart(data)
 ```
 
-In order to calculate the z-normalization and the z-log normalization, we need to calculate the reference intervals. For that we need to choose the reference individuals (the healthy population) and so to calculate the reference limits with it. Usually the computation of reference limits is done in the medicine domain among the healthy patients but in this case, we can not say which is the healthy population between Kecimen and Besni. Habitually, we would take the class which has more instances as healthy population because in general we have more healthy people than unhealthy, and since here, we have the exact amount of each variety (450 each), we choose arbitrarily the healthy and we will choose "Kecimen". 
+In order to calculate the z-normalization and the z-log normalization, we need to calculate the reference intervals. For that we need to choose the reference individuals (the healthy population) and so to calculate the reference limits with it. Usually, we compute the reference limits in the medicine domain among the healthy patients but in this case, we can not say which is the healthy population between Kecimen and Besni. If we cannnot say which his the healthy population, we can take the class which has more instances as healthy population because in general we have more healthy people than unhealthy, but since here, we have the exact same amount for each variety (450 each), we choose arbitrarily the healthy population and we will choose "Kecimen". 
 
 In addition, in order to have a good estimation of the reference limits, we need to have more than 120 instances of the reference individuals, which is the case here. ((standard recommendation from the International guidelines (IFCC-CLSI C28-A3))).
 

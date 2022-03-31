@@ -49,10 +49,10 @@ As mentioned before, our reference individuals will be the Kecimen variety
 reference_individuals <- train_data[train_data$Class == "Kecimen",]
 ```
 
-We just do an example of computing the reference limit for the Area attribute, but of course we will have to do this for the other attributes.
+We just do an example of calculating the reference limit for the Area attribute, but of course we will have to do this for the other attributes.
 
 
-Example of computing the Reference limit for the Area : 
+Example of calculating the Reference limit for the Area : 
 
 ```{r}
 area_ref_ind <- reference_individuals$Area
@@ -79,7 +79,7 @@ attribute_list <- list("Area",
 
 Here we apply the z-normalization and the z-log normalization to the train data and the test data. For this we calculate the lower_interval and the upper_interval from the reference_individuals (reference_individuals contains only data from the train data). And we use them for the normalization for the train data but also for the test data.
 
-Note: We are supposed to no know the test data, but we also have to normalize them this is why we normalize them with the lower_interval and upper_interval computed with the train data.
+Note: We are not supposed to  know the test data, but we also have to normalize them this is why we normalize them with the lower_interval and upper_interval computed with the train data.
 
 See the file data_preparation_functions.R for more information.
 ```{r}

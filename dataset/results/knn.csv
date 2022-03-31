@@ -1,7 +1,7 @@
 "name";"knn"
-"without normalization on test data";0,81
-"with z normalization on test data";0,813333333333333
-"with z log normalization on test data";0,82
-"k fold crossvalidation without normalization";0,812222222222222
+"without normalization on test data";0,803333333333333
+"with z normalization on test data";0,863333333333333
+"with z log normalization on test data";0,846666666666667
+"k fold crossvalidation without normalization";0,815555555555556
 "k fold crossvalidation with z normalization";0,844444444444444
-"k fold crossvalidation with z log normalization";0,835555555555556
+"k fold crossvalidation with z log normalization";0,838888888888889

@@ -68,9 +68,9 @@ formattable(table,
 ))
 ```
 
-As we can see, in general, when we apply the z-normalization and the z-log normalization, we have better accuracy than without them. It's even more flagrant, when doing the k-fold cross validation.
+As we can see, in general, when we apply the z-normalization and the z-log normalization, we have better accuracy than without them. It's even more flagrant, when doing the k-fold cross validation. We can also see that most of the time, we have better accuracy with the z-log normalization than with the z-normalization.
 
-However, using the neural network is more difficult. I have used various parameters to try to have better performance, but this is the best I could get (for the last one, the accuracy is 0.0, because I kept getting error each time running it). I think it's due to the small amount of data in the data set. Usually for better performance with neural network, much more data are needed.
+However, using the neural network is more difficult. I have used various parameters to try to have better performance, but this is the best I could get (for the last one, the accuracy is 0.0, because I kept getting error each time I computed it). I think it's due to the small amount of data in the data set. Usually for good performance with neural network, much more data are needed.
 
 ```{r}
 # We plot the boxplot of the accuracy with the k-fold cross validation
@@ -78,14 +78,16 @@ draw_boxplot(tail(table[ ,2:ncol(table)], 3))
 ```
 
 ```{r}
-# We plot the boxplot of the accuracy with the k-fold cross validation (without neural network)
+# We plot the boxplot of the accuracy with the k-fold cross validation (without neural network so that we can better compared the other algorithms)
 draw_boxplot(tail(table[ ,2:ncol(table)-1], 3))
 ```
 
 
-If we would have to choose which is the best model to continue with this project, we should choose the support vector machines, because as we can see on this boxplot, it leads to the best overall accuracy on the k-fold cross validation.
+If we would have to choose  the best model to continue with this project, we should choose the support vector machines, because as we can see on this boxplot, it leads to the best overall accuracy on the k-fold cross validation.
 
 
 # Conclusion
-In conclusion, applying the z-normalization and the z-score normalization is helpful to improve the accuracy of our classification algorithms. However the gain of applying the normalization is not very much, it is at most 2% more than without the normalization (k-fold cross validation). Even sometimes, applying the z-normalization or the z-log normalization do not always lead to better accuracy (e.g. Decsion tree).
+In conclusion, applying the z-normalization and the z-score normalization is helpful to improve the accuracy of our classification algorithms. However the gain of applying the normalization is not very much, it is at most 2% more than without the normalization (k-fold cross validation), which is less than the 5% we expected. Even sometimes, applying the z-normalization or the z-log normalization do not always lead to better accuracy (e.g. with Decision tree).
 The problem of these normalizations is that they are highly dependent on the estimation of the reference intervals. Different estimations, can lead to different results.
+In addition, the estimation of the reference intervals is influenced by the reference individuals we choose. Here in our case we have 2 classes in the exact same proportion which I think is not great to determine the reference individuals. What would have been great is to have one class in much more bigger proportion than the other so that we have better estimation of the reference intervals.
+But except these problems, I think in general, the z-normalization and z-log normalization are great tools for improving the accuracy of our models. 

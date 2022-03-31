@@ -1,7 +1,7 @@
 "name";"naive_bayes_classifier"
 "without normalization on test data";0,823333333333333
 "with z normalization on test data";0,823333333333333
-"with z log normalization on test data";0,836666666666667
-"k fold crossvalidation without normalization";0,838888888888889
-"k fold crossvalidation with z normalization";0,838888888888889
-"k fold crossvalidation with z log normalization";0,855555555555556
+"with z log normalization on test data";0,87
+"k fold crossvalidation without normalization";0,836666666666667
+"k fold crossvalidation with z normalization";0,836666666666667
+"k fold crossvalidation with z log normalization";0,857777777777778

@@ -1,7 +1,7 @@
 "name";"support_vector_machines_results"
-"without normalization on test data";0,853333333333333
-"with z normalization on test data";0,853333333333333
-"with z log normalization on test data";0,85
-"k fold crossvalidation without normalization";0,865555555555556
-"k fold crossvalidation with z normalization";0,865555555555556
-"k fold crossvalidation with z log normalization";0,866666666666667
+"without normalization on test data";0,89
+"with z normalization on test data";0,89
+"with z log normalization on test data";0,89
+"k fold crossvalidation without normalization";0,866666666666667
+"k fold crossvalidation with z normalization";0,866666666666667
+"k fold crossvalidation with z log normalization";0,872222222222222

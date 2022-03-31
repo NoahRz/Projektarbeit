@@ -210,39 +210,39 @@ naive_bayes_cl</code></pre>
 ## 
 ## Conditional probabilities:
 ##          Area
-## Y             [,1]     [,2]
-##   Besni   113914.5 39497.42
-##   Kecimen  63243.4 17628.83
+## Y              [,1]    [,2]
+##   Besni   114243.19 40955.4
+##   Kecimen  63384.48 17938.6
 ## 
 ##          MajorAxisLength
 ## Y             [,1]      [,2]
-##   Besni   510.3949 103.99936
-##   Kecimen 352.1703  58.48474
+##   Besni   513.7137 114.50513
+##   Kecimen 354.8590  61.83801
 ## 
 ##          MinorAxisLength
 ## Y             [,1]     [,2]
-##   Besni   282.7978 51.97409
-##   Kecimen 229.1802 33.93981
+##   Besni   281.7305 49.98777
+##   Kecimen 228.1271 34.26350
 ## 
 ##          Eccentricity
 ## Y              [,1]       [,2]
-##   Besni   0.8181181 0.06972866
-##   Kecimen 0.7415066 0.09306108
+##   Besni   0.8196837 0.07004233
+##   Kecimen 0.7479333 0.09096302
 ## 
 ##          ConvexArea
 ## Y              [,1]     [,2]
-##   Besni   118221.10 40911.78
-##   Kecimen  65470.98 18779.70
+##   Besni   118891.21 42803.55
+##   Kecimen  65727.31 19676.64
 ## 
 ##          Extent
 ## Y              [,1]       [,2]
-##   Besni   0.6965798 0.05523095
-##   Kecimen 0.7068105 0.04187445
+##   Besni   0.6947615 0.06275506
+##   Kecimen 0.7070397 0.04573389
 ## 
 ##          Perimeter
 ## Y              [,1]     [,2]
-##   Besni   1353.0136 245.8743
-##   Kecimen  981.8525 144.5142</code></pre>
+##   Besni   1359.8686 263.2189
+##   Kecimen  985.1609 157.8014</code></pre>
 <pre class="r"><code># prediction with training data
 predict_train_data &lt;- predict(naive_bayes_cl, newdata = train_data)
 confusionMatrix(predict_train_data, train_data$Class)</code></pre>
@@ -250,26 +250,26 @@ confusionMatrix(predict_train_data, train_data$Class)</code></pre>
 ## 
 ##           Reference
 ## Prediction Besni Kecimen
-##    Besni     227      21
-##    Kecimen    73     279
+##    Besni     213      16
+##    Kecimen    87     284
 ##                                           
-##                Accuracy : 0.8433          
-##                  95% CI : (0.8117, 0.8715)
+##                Accuracy : 0.8283          
+##                  95% CI : (0.7957, 0.8577)
 ##     No Information Rate : 0.5             
-##     P-Value [Acc &gt; NIR] : &lt; 2.2e-16       
+##     P-Value [Acc &gt; NIR] : &lt; 2e-16         
 ##                                           
-##                   Kappa : 0.6867          
+##                   Kappa : 0.6567          
 ##                                           
-##  Mcnemar&#39;s Test P-Value : 1.439e-07       
+##  Mcnemar&#39;s Test P-Value : 5.3e-12         
 ##                                           
-##             Sensitivity : 0.7567          
-##             Specificity : 0.9300          
-##          Pos Pred Value : 0.9153          
-##          Neg Pred Value : 0.7926          
+##             Sensitivity : 0.7100          
+##             Specificity : 0.9467          
+##          Pos Pred Value : 0.9301          
+##          Neg Pred Value : 0.7655          
 ##              Prevalence : 0.5000          
-##          Detection Rate : 0.3783          
-##    Detection Prevalence : 0.4133          
-##       Balanced Accuracy : 0.8433          
+##          Detection Rate : 0.3550          
+##    Detection Prevalence : 0.3817          
+##       Balanced Accuracy : 0.8283          
 ##                                           
 ##        &#39;Positive&#39; Class : Besni           
 ## </code></pre>
@@ -332,38 +332,38 @@ print(naive_bayes_z_normalization)</code></pre>
 ## Conditional probabilities:
 ##          z_transformed_Area
 ## Y               [,1]      [,2]
-##   Besni   2.91174289 2.2142272
-##   Kecimen 0.07111737 0.9882733
+##   Besni   2.87018038 2.2400211
+##   Kecimen 0.08850557 0.9811368
 ## 
 ##          z_transformed_MajorAxisLength
 ## Y               [,1]      [,2]
-##   Besni   2.73378692 1.7644469
-##   Kecimen 0.04935816 0.9922487
+##   Besni   2.60804922 1.8382782
+##   Kecimen 0.05777889 0.9927544
 ## 
 ##          z_transformed_MinorAxisLength
 ## Y               [,1]      [,2]
-##   Besni   1.61354191 1.5213235
-##   Kecimen 0.04410976 0.9934457
+##   Besni   1.62753177 1.4493152
+##   Kecimen 0.07338617 0.9934153
 ## 
 ##          z_transformed_Eccentricity
 ## Y               [,1]      [,2]
-##   Besni    0.5551880 0.7199518
-##   Kecimen -0.2358293 0.9608602
+##   Besni    0.5385913 0.7432278
+##   Kecimen -0.2227613 0.9652199
 ## 
 ##          z_transformed_ConvexArea
 ## Y               [,1]      [,2]
-##   Besni   2.85402757 2.1571944
-##   Kecimen 0.07262175 0.9902151
+##   Besni   2.74621800 2.1380444
+##   Kecimen 0.09067229 0.9828515
 ## 
 ##          z_transformed_Extent
 ## Y                [,1]      [,2]
-##   Besni   -0.29454057 1.3096195
-##   Kecimen -0.05195257 0.9929143
+##   Besni   -0.31160530 1.3613097
+##   Kecimen -0.04526157 0.9920792
 ## 
 ##          z_transformed_Perimeter
 ## Y               [,1]      [,2]
-##   Besni   2.59376218 1.6917288
-##   Kecimen 0.04000283 0.9943244</code></pre>
+##   Besni   2.41102731 1.6553589
+##   Kecimen 0.05452666 0.9923979</code></pre>
 <pre class="r"><code># prediction with training data
 predict_train_z_normalization &lt;- predict(naive_bayes_z_normalization, train_data)
 confusionMatrix(predict_train_z_normalization, train_data$Class)</code></pre>
@@ -371,26 +371,26 @@ confusionMatrix(predict_train_z_normalization, train_data$Class)</code></pre>
 ## 
 ##           Reference
 ## Prediction Besni Kecimen
-##    Besni     227      21
-##    Kecimen    73     279
+##    Besni     213      16
+##    Kecimen    87     284
 ##                                           
-##                Accuracy : 0.8433          
-##                  95% CI : (0.8117, 0.8715)
+##                Accuracy : 0.8283          
+##                  95% CI : (0.7957, 0.8577)
 ##     No Information Rate : 0.5             
-##     P-Value [Acc &gt; NIR] : &lt; 2.2e-16       
+##     P-Value [Acc &gt; NIR] : &lt; 2e-16         
 ##                                           
-##                   Kappa : 0.6867          
+##                   Kappa : 0.6567          
 ##                                           
-##  Mcnemar&#39;s Test P-Value : 1.439e-07       
+##  Mcnemar&#39;s Test P-Value : 5.3e-12         
 ##                                           
-##             Sensitivity : 0.7567          
-##             Specificity : 0.9300          
-##          Pos Pred Value : 0.9153          
-##          Neg Pred Value : 0.7926          
+##             Sensitivity : 0.7100          
+##             Specificity : 0.9467          
+##          Pos Pred Value : 0.9301          
+##          Neg Pred Value : 0.7655          
 ##              Prevalence : 0.5000          
-##          Detection Rate : 0.3783          
-##    Detection Prevalence : 0.4133          
-##       Balanced Accuracy : 0.8433          
+##          Detection Rate : 0.3550          
+##    Detection Prevalence : 0.3817          
+##       Balanced Accuracy : 0.8283          
 ##                                           
 ##        &#39;Positive&#39; Class : Besni           
 ## </code></pre>
@@ -454,38 +454,38 @@ print(naive_bayes_z_log_normalization)</code></pre>
 ## Conditional probabilities:
 ##          z_log_transformed_Area
 ## Y              [,1]      [,2]
-##   Besni   0.7409033 0.3480319
-##   Kecimen 0.1749697 0.2722838
+##   Besni   0.7566276 0.3596457
+##   Kecimen 0.1937824 0.2730150
 ## 
 ##          z_log_transformed_MajorAxisLength
 ## Y               [,1]      [,2]
-##   Besni   0.41701649 0.2020374
-##   Kecimen 0.05376481 0.1560555
+##   Besni   0.42045876 0.2196431
+##   Kecimen 0.06123269 0.1605362
 ## 
 ##          z_log_transformed_MinorAxisLength
 ## Y               [,1]      [,2]
-##   Besni   0.24562966 0.1811558
-##   Kecimen 0.04084264 0.1490941
+##   Besni   0.25384656 0.1754780
+##   Kecimen 0.04703538 0.1498447
 ## 
 ##          z_log_transformed_Eccentricity
-## Y                [,1]       [,2]
-##   Besni    0.09580365 0.09228929
-##   Kecimen -0.00766833 0.14140650
+## Y                 [,1]       [,2]
+##   Besni    0.089643019 0.09190624
+##   Kecimen -0.006409363 0.13509031
 ## 
 ##          z_log_transformed_ConvexArea
 ## Y              [,1]      [,2]
-##   Besni   0.7589317 0.3439429
-##   Kecimen 0.1896688 0.2689822
+##   Besni   0.7942372 0.3570971
+##   Kecimen 0.2263526 0.2728856
 ## 
 ##          z_log_transformed_Extent
-## Y                [,1]       [,2]
-##   Besni   -0.01422391 0.08433925
-##   Kecimen  0.00191240 0.06154226
+## Y                 [,1]       [,2]
+##   Besni   -0.016823147 0.09847791
+##   Kecimen  0.003052821 0.06712075
 ## 
 ##          z_log_transformed_Perimeter
 ## Y               [,1]      [,2]
-##   Besni   0.35521424 0.1780761
-##   Kecimen 0.04072501 0.1375827</code></pre>
+##   Besni   0.36704198 0.1883458
+##   Kecimen 0.05159167 0.1446852</code></pre>
 <pre class="r"><code># prediction with training data
 predict_train_z_log_normalization &lt;- predict(naive_bayes_z_log_normalization, train_data)
 confusionMatrix(predict_train_z_log_normalization, train_data$Class)</code></pre>
@@ -493,28 +493,28 @@ confusionMatrix(predict_train_z_log_normalization, train_data$Class)</code></pre
 ## 
 ##           Reference
 ## Prediction Besni Kecimen
-##    Besni     252      35
-##    Kecimen    48     265
-##                                           
-##                Accuracy : 0.8617          
-##                  95% CI : (0.8314, 0.8883)
-##     No Information Rate : 0.5             
-##     P-Value [Acc &gt; NIR] : &lt;2e-16          
-##                                           
-##                   Kappa : 0.7233          
-##                                           
-##  Mcnemar&#39;s Test P-Value : 0.1878          
-##                                           
-##             Sensitivity : 0.8400          
-##             Specificity : 0.8833          
-##          Pos Pred Value : 0.8780          
-##          Neg Pred Value : 0.8466          
-##              Prevalence : 0.5000          
-##          Detection Rate : 0.4200          
-##    Detection Prevalence : 0.4783          
-##       Balanced Accuracy : 0.8617          
-##                                           
-##        &#39;Positive&#39; Class : Besni           
+##    Besni     239      32
+##    Kecimen    61     268
+##                                          
+##                Accuracy : 0.845          
+##                  95% CI : (0.8135, 0.873)
+##     No Information Rate : 0.5            
+##     P-Value [Acc &gt; NIR] : &lt; 2.2e-16      
+##                                          
+##                   Kappa : 0.69           
+##                                          
+##  Mcnemar&#39;s Test P-Value : 0.003691       
+##                                          
+##             Sensitivity : 0.7967         
+##             Specificity : 0.8933         
+##          Pos Pred Value : 0.8819         
+##          Neg Pred Value : 0.8146         
+##              Prevalence : 0.5000         
+##          Detection Rate : 0.3983         
+##    Detection Prevalence : 0.4517         
+##       Balanced Accuracy : 0.8450         
+##                                          
+##        &#39;Positive&#39; Class : Besni          
 ## </code></pre>
 <pre class="r"><code># prediction with test data
 predict_test_data_z_Log_normalization &lt;- predict(naive_bayes_z_log_normalization, test_data)
@@ -524,26 +524,26 @@ conf_matrix</code></pre>
 ## 
 ##           Reference
 ## Prediction Besni Kecimen
-##    Besni     119      18
-##    Kecimen    31     132
+##    Besni     128      17
+##    Kecimen    22     133
 ##                                           
-##                Accuracy : 0.8367          
-##                  95% CI : (0.7899, 0.8767)
+##                Accuracy : 0.87            
+##                  95% CI : (0.8266, 0.9059)
 ##     No Information Rate : 0.5             
-##     P-Value [Acc &gt; NIR] : &lt; 2e-16         
+##     P-Value [Acc &gt; NIR] : &lt;2e-16          
 ##                                           
-##                   Kappa : 0.6733          
+##                   Kappa : 0.74            
 ##                                           
-##  Mcnemar&#39;s Test P-Value : 0.08648         
+##  Mcnemar&#39;s Test P-Value : 0.5218          
 ##                                           
-##             Sensitivity : 0.7933          
-##             Specificity : 0.8800          
-##          Pos Pred Value : 0.8686          
-##          Neg Pred Value : 0.8098          
+##             Sensitivity : 0.8533          
+##             Specificity : 0.8867          
+##          Pos Pred Value : 0.8828          
+##          Neg Pred Value : 0.8581          
 ##              Prevalence : 0.5000          
-##          Detection Rate : 0.3967          
-##    Detection Prevalence : 0.4567          
-##       Balanced Accuracy : 0.8367          
+##          Detection Rate : 0.4267          
+##    Detection Prevalence : 0.4833          
+##       Balanced Accuracy : 0.8700          
 ##                                           
 ##        &#39;Positive&#39; Class : Besni           
 ## </code></pre>
@@ -576,13 +576,13 @@ for (i in 1:K){
 }
 
 error_list</code></pre>
-<pre><code>##  [1] 0.1888889 0.1666667 0.2000000 0.1333333 0.1111111 0.1777778 0.1666667
-##  [8] 0.1777778 0.1888889 0.1000000</code></pre>
+<pre><code>##  [1] 0.1555556 0.1111111 0.1888889 0.1333333 0.1666667 0.1888889 0.1555556
+##  [8] 0.1555556 0.2111111 0.1666667</code></pre>
 <pre class="r"><code>mean(error_list)</code></pre>
-<pre><code>## [1] 0.1611111</code></pre>
+<pre><code>## [1] 0.1633333</code></pre>
 <pre class="r"><code>mean_accuracy &lt;- 1 - mean(error_list)
 mean_accuracy</code></pre>
-<pre><code>## [1] 0.8388889</code></pre>
+<pre><code>## [1] 0.8366667</code></pre>
 <pre class="r"><code>accuracy_k_fold_crossvalidation_without_normalization &lt;- mean_accuracy</code></pre>
 </div>
 <div id="with-z-normalization-1" class="section level2">
@@ -606,13 +606,13 @@ for (i in 1:K){
 }
 
 error_list</code></pre>
-<pre><code>##  [1] 0.1888889 0.1666667 0.2000000 0.1333333 0.1111111 0.1777778 0.1666667
-##  [8] 0.1777778 0.1888889 0.1000000</code></pre>
+<pre><code>##  [1] 0.1555556 0.1111111 0.1888889 0.1333333 0.1666667 0.1888889 0.1555556
+##  [8] 0.1555556 0.2111111 0.1666667</code></pre>
 <pre class="r"><code>mean(error_list)</code></pre>
-<pre><code>## [1] 0.1611111</code></pre>
+<pre><code>## [1] 0.1633333</code></pre>
 <pre class="r"><code>mean_accuracy &lt;- 1 - mean(error_list)
 mean_accuracy</code></pre>
-<pre><code>## [1] 0.8388889</code></pre>
+<pre><code>## [1] 0.8366667</code></pre>
 <pre class="r"><code>accuracy_k_fold_crossvalidation_with_z_normalization &lt;- mean_accuracy</code></pre>
 </div>
 <div id="with-z-log-normalization-1" class="section level2">
@@ -636,13 +636,13 @@ for (i in 1:K){
 }
 
 error_list</code></pre>
-<pre><code>##  [1] 0.1555556 0.1333333 0.1777778 0.1222222 0.1000000 0.1222222 0.1444444
-##  [8] 0.2000000 0.1888889 0.1000000</code></pre>
+<pre><code>##  [1] 0.1555556 0.1000000 0.1777778 0.1000000 0.1000000 0.1666667 0.1333333
+##  [8] 0.1333333 0.2111111 0.1444444</code></pre>
 <pre class="r"><code>mean(error_list)</code></pre>
-<pre><code>## [1] 0.1444444</code></pre>
+<pre><code>## [1] 0.1422222</code></pre>
 <pre class="r"><code>mean_accuracy &lt;- 1 - mean(error_list)
 mean_accuracy</code></pre>
-<pre><code>## [1] 0.8555556</code></pre>
+<pre><code>## [1] 0.8577778</code></pre>
 <pre class="r"><code>accuracy_k_fold_crossvalidation_with_z_log_normalization &lt;- mean_accuracy</code></pre>
 </div>
 </div>
@@ -668,10 +668,10 @@ df &lt;- data.frame(name, naive_bayes_classifier)</code></pre>
 <pre><code>##                                              name naive_bayes_classifier
 ## 1              without normalization on test data              0.8233333
 ## 2               with z normalization on test data              0.8233333
-## 3           with z log normalization on test data              0.8366667
-## 4    k fold crossvalidation without normalization              0.8388889
-## 5     k fold crossvalidation with z normalization              0.8388889
-## 6 k fold crossvalidation with z log normalization              0.8555556</code></pre>
+## 3           with z log normalization on test data              0.8700000
+## 4    k fold crossvalidation without normalization              0.8366667
+## 5     k fold crossvalidation with z normalization              0.8366667
+## 6 k fold crossvalidation with z log normalization              0.8577778</code></pre>
 <pre class="r"><code>write.csv2(df, file=&quot;./dataset/results/naive_bayes_classifier.csv&quot;, row.names = FALSE)</code></pre>
 </div>
 

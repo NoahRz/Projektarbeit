@@ -212,11 +212,11 @@ print(rand_forest)</code></pre>
 ##                      Number of trees: 500
 ## No. of variables tried at each split: 2
 ## 
-##         OOB estimate of  error rate: 12.5%
+##         OOB estimate of  error rate: 15.17%
 ## Confusion matrix:
 ##         Besni Kecimen class.error
-## Besni     248      52  0.17333333
-## Kecimen    23     277  0.07666667</code></pre>
+## Besni     240      60   0.2000000
+## Kecimen    31     269   0.1033333</code></pre>
 <pre class="r"><code># prediction with training data
 predict_train_data &lt;- predict(rand_forest, train_data)
 confusionMatrix(predict_train_data, train_data$Class)</code></pre>
@@ -255,26 +255,26 @@ conf_matrix</code></pre>
 ## 
 ##           Reference
 ## Prediction Besni Kecimen
-##    Besni     120      21
-##    Kecimen    30     129
+##    Besni     127      13
+##    Kecimen    23     137
 ##                                           
-##                Accuracy : 0.83            
-##                  95% CI : (0.7826, 0.8707)
+##                Accuracy : 0.88            
+##                  95% CI : (0.8378, 0.9145)
 ##     No Information Rate : 0.5             
 ##     P-Value [Acc &gt; NIR] : &lt;2e-16          
 ##                                           
-##                   Kappa : 0.66            
+##                   Kappa : 0.76            
 ##                                           
-##  Mcnemar&#39;s Test P-Value : 0.2626          
+##  Mcnemar&#39;s Test P-Value : 0.1336          
 ##                                           
-##             Sensitivity : 0.8000          
-##             Specificity : 0.8600          
-##          Pos Pred Value : 0.8511          
-##          Neg Pred Value : 0.8113          
+##             Sensitivity : 0.8467          
+##             Specificity : 0.9133          
+##          Pos Pred Value : 0.9071          
+##          Neg Pred Value : 0.8562          
 ##              Prevalence : 0.5000          
-##          Detection Rate : 0.4000          
-##    Detection Prevalence : 0.4700          
-##       Balanced Accuracy : 0.8300          
+##          Detection Rate : 0.4233          
+##    Detection Prevalence : 0.4667          
+##       Balanced Accuracy : 0.8800          
 ##                                           
 ##        &#39;Positive&#39; Class : Besni           
 ## </code></pre>
@@ -300,11 +300,11 @@ print(rand_forest_z_normalization)</code></pre>
 ##                      Number of trees: 500
 ## No. of variables tried at each split: 2
 ## 
-##         OOB estimate of  error rate: 12.67%
+##         OOB estimate of  error rate: 15.17%
 ## Confusion matrix:
 ##         Besni Kecimen class.error
-## Besni     249      51  0.17000000
-## Kecimen    25     275  0.08333333</code></pre>
+## Besni     241      59   0.1966667
+## Kecimen    32     268   0.1066667</code></pre>
 <pre class="r"><code># prediction with training data
 predict_train_z_normalization &lt;- predict(rand_forest_z_normalization, train_data)
 confusionMatrix(predict_train_z_normalization, train_data$Class)</code></pre>
@@ -343,26 +343,26 @@ conf_matrix</code></pre>
 ## 
 ##           Reference
 ## Prediction Besni Kecimen
-##    Besni     120      20
-##    Kecimen    30     130
+##    Besni     126      14
+##    Kecimen    24     136
 ##                                           
-##                Accuracy : 0.8333          
-##                  95% CI : (0.7862, 0.8737)
+##                Accuracy : 0.8733          
+##                  95% CI : (0.8303, 0.9088)
 ##     No Information Rate : 0.5             
 ##     P-Value [Acc &gt; NIR] : &lt;2e-16          
 ##                                           
-##                   Kappa : 0.6667          
+##                   Kappa : 0.7467          
 ##                                           
-##  Mcnemar&#39;s Test P-Value : 0.2031          
+##  Mcnemar&#39;s Test P-Value : 0.1443          
 ##                                           
-##             Sensitivity : 0.8000          
-##             Specificity : 0.8667          
-##          Pos Pred Value : 0.8571          
-##          Neg Pred Value : 0.8125          
+##             Sensitivity : 0.8400          
+##             Specificity : 0.9067          
+##          Pos Pred Value : 0.9000          
+##          Neg Pred Value : 0.8500          
 ##              Prevalence : 0.5000          
-##          Detection Rate : 0.4000          
+##          Detection Rate : 0.4200          
 ##    Detection Prevalence : 0.4667          
-##       Balanced Accuracy : 0.8333          
+##       Balanced Accuracy : 0.8733          
 ##                                           
 ##        &#39;Positive&#39; Class : Besni           
 ## </code></pre>
@@ -388,11 +388,11 @@ print(rand_forest_z_log_normalization)</code></pre>
 ##                      Number of trees: 500
 ## No. of variables tried at each split: 2
 ## 
-##         OOB estimate of  error rate: 13%
+##         OOB estimate of  error rate: 15%
 ## Confusion matrix:
 ##         Besni Kecimen class.error
-## Besni     248      52  0.17333333
-## Kecimen    26     274  0.08666667</code></pre>
+## Besni     242      58   0.1933333
+## Kecimen    32     268   0.1066667</code></pre>
 <pre class="r"><code># prediction with training data
 predict_train_z_log_normalization &lt;- predict(rand_forest_z_log_normalization, train_data)
 confusionMatrix(predict_train_z_log_normalization, train_data$Class)</code></pre>
@@ -431,26 +431,26 @@ conf_matrix</code></pre>
 ## 
 ##           Reference
 ## Prediction Besni Kecimen
-##    Besni     120      21
-##    Kecimen    30     129
+##    Besni     126      14
+##    Kecimen    24     136
 ##                                           
-##                Accuracy : 0.83            
-##                  95% CI : (0.7826, 0.8707)
+##                Accuracy : 0.8733          
+##                  95% CI : (0.8303, 0.9088)
 ##     No Information Rate : 0.5             
 ##     P-Value [Acc &gt; NIR] : &lt;2e-16          
 ##                                           
-##                   Kappa : 0.66            
+##                   Kappa : 0.7467          
 ##                                           
-##  Mcnemar&#39;s Test P-Value : 0.2626          
+##  Mcnemar&#39;s Test P-Value : 0.1443          
 ##                                           
-##             Sensitivity : 0.8000          
-##             Specificity : 0.8600          
-##          Pos Pred Value : 0.8511          
-##          Neg Pred Value : 0.8113          
+##             Sensitivity : 0.8400          
+##             Specificity : 0.9067          
+##          Pos Pred Value : 0.9000          
+##          Neg Pred Value : 0.8500          
 ##              Prevalence : 0.5000          
-##          Detection Rate : 0.4000          
-##    Detection Prevalence : 0.4700          
-##       Balanced Accuracy : 0.8300          
+##          Detection Rate : 0.4200          
+##    Detection Prevalence : 0.4667          
+##       Balanced Accuracy : 0.8733          
 ##                                           
 ##        &#39;Positive&#39; Class : Besni           
 ## </code></pre>
@@ -484,13 +484,13 @@ for (i in 1:K){
 }
 
 error_list</code></pre>
-<pre><code>##  [1] 0.15555556 0.13333333 0.14444444 0.07777778 0.08888889 0.14444444
-##  [7] 0.13333333 0.20000000 0.21111111 0.15555556</code></pre>
+<pre><code>##  [1] 0.13333333 0.10000000 0.16666667 0.12222222 0.12222222 0.15555556
+##  [7] 0.14444444 0.07777778 0.18888889 0.17777778</code></pre>
 <pre class="r"><code>mean(error_list)</code></pre>
-<pre><code>## [1] 0.1444444</code></pre>
+<pre><code>## [1] 0.1388889</code></pre>
 <pre class="r"><code>mean_accuracy &lt;- 1 - mean(error_list)
 mean_accuracy</code></pre>
-<pre><code>## [1] 0.8555556</code></pre>
+<pre><code>## [1] 0.8611111</code></pre>
 <pre class="r"><code>accuracy_k_fold_crossvalidation_without_normalization &lt;- mean_accuracy</code></pre>
 </div>
 <div id="with-z-normalization-1" class="section level2">
@@ -515,13 +515,13 @@ for (i in 1:K){
 }
 
 error_list</code></pre>
-<pre><code>##  [1] 0.14444444 0.13333333 0.12222222 0.06666667 0.08888889 0.14444444
-##  [7] 0.13333333 0.18888889 0.20000000 0.15555556</code></pre>
+<pre><code>##  [1] 0.12222222 0.10000000 0.16666667 0.12222222 0.12222222 0.14444444
+##  [7] 0.15555556 0.07777778 0.21111111 0.18888889</code></pre>
 <pre class="r"><code>mean(error_list)</code></pre>
-<pre><code>## [1] 0.1377778</code></pre>
+<pre><code>## [1] 0.1411111</code></pre>
 <pre class="r"><code>mean_accuracy &lt;- 1 - mean(error_list)
 mean_accuracy</code></pre>
-<pre><code>## [1] 0.8622222</code></pre>
+<pre><code>## [1] 0.8588889</code></pre>
 <pre class="r"><code>accuracy_k_fold_crossvalidation_with_z_normalization &lt;- mean_accuracy</code></pre>
 </div>
 <div id="with-z-log-normalization-1" class="section level2">
@@ -546,13 +546,13 @@ for (i in 1:K){
 }
 
 error_list</code></pre>
-<pre><code>##  [1] 0.15555556 0.13333333 0.11111111 0.07777778 0.10000000 0.14444444
-##  [7] 0.13333333 0.20000000 0.21111111 0.14444444</code></pre>
+<pre><code>##  [1] 0.12222222 0.10000000 0.15555556 0.12222222 0.12222222 0.14444444
+##  [7] 0.15555556 0.07777778 0.20000000 0.17777778</code></pre>
 <pre class="r"><code>mean(error_list)</code></pre>
-<pre><code>## [1] 0.1411111</code></pre>
+<pre><code>## [1] 0.1377778</code></pre>
 <pre class="r"><code>mean_accuracy &lt;- 1 - mean(error_list)
 mean_accuracy</code></pre>
-<pre><code>## [1] 0.8588889</code></pre>
+<pre><code>## [1] 0.8622222</code></pre>
 <pre class="r"><code>accuracy_k_fold_crossvalidation_with_z_log_normalization &lt;- mean_accuracy</code></pre>
 </div>
 </div>
@@ -576,12 +576,12 @@ name &lt;- c(&quot;without normalization on test data&quot;,
 df &lt;- data.frame(name, random_forest_results)</code></pre>
 <pre class="r"><code>df</code></pre>
 <pre><code>##                                              name random_forest_results
-## 1              without normalization on test data             0.8300000
-## 2               with z normalization on test data             0.8333333
-## 3           with z log normalization on test data             0.8300000
-## 4    k fold crossvalidation without normalization             0.8555556
-## 5     k fold crossvalidation with z normalization             0.8622222
-## 6 k fold crossvalidation with z log normalization             0.8588889</code></pre>
+## 1              without normalization on test data             0.8800000
+## 2               with z normalization on test data             0.8733333
+## 3           with z log normalization on test data             0.8733333
+## 4    k fold crossvalidation without normalization             0.8611111
+## 5     k fold crossvalidation with z normalization             0.8588889
+## 6 k fold crossvalidation with z log normalization             0.8622222</code></pre>
 <pre class="r"><code>write.csv2(df, file=&quot;./dataset/results/random_forest.csv&quot;, row.names = FALSE)</code></pre>
 </div>
 
