@@ -70,7 +70,7 @@ formattable(table,
 
 As we can see, in general, when we apply the z-normalization and the z-log normalization, we have better accuracy than without them. It's even more flagrant, when doing the k-fold cross validation. We can also see that most of the time, we have better accuracy with the z-log normalization than with the z-normalization.
 
-However, using the neural network is more difficult. I have used various parameters to try to have better performance, but this is the best I could get (for the last one, the accuracy is 0.0, because I kept getting error each time I computed it). I think it's due to the small amount of data in the data set. Usually for good performance with neural network, much more data are needed.
+However, using the neural network is more difficult, the results are very bad. I have used various parameters to try to have better performance, but this is the best I could get (for the last one, the accuracy is 0.0, because I kept getting error each time I computed it). I think it's due to the small amount of data in the data set. Usually for good performance with neural network, much more data are needed. A rule of thumb is usually 1000 instances per class.
 
 ```{r}
 # We plot the boxplot of the accuracy with the k-fold cross validation

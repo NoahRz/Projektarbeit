@@ -54,7 +54,7 @@ labels <- c("Kecimen", "Besni")
 ```
 
 ```{r}
-pred <- predict(nn, test_data, labels)
+pred <- predict(nn, test_data, labels) # method from data_modelling_functions.R file
 ```
 
 ```{r}
@@ -231,41 +231,41 @@ accuracy_k_fold_crossvalidation_without_normalization <- mean_accuracy
 
 
 ```{r}
-error_list <- c()
-for (i in 1:K){
-  model <- neuralnet(Class ~ z_transformed_Area +
-                       z_transformed_MajorAxisLength +
-                       z_transformed_MinorAxisLength +
-                       z_transformed_Eccentricity +
-                       z_transformed_ConvexArea +
-                       z_transformed_Extent +
-                       z_transformed_Perimeter,
-                     data=data_cross_validation[data_cross_validation$k != i,],
-                     hidden=c(2, 2),
-                     act.fct = "logistic",
-                     linear.output = FALSE,
-                     stepmax = 1e7)
-  
-  pred <- predict(model, data_cross_validation[data_cross_validation$k == i,], labels)
-  misclassification_rate <- 1- pred[["acccuracy"]]
-  error_list <- c(error_list, misclassification_rate)
-}
-
-error_list
+# error_list <- c()
+# for (i in 1:K){
+#   model <- neuralnet(Class ~ z_transformed_Area +
+#                        z_transformed_MajorAxisLength +
+#                        z_transformed_MinorAxisLength +
+#                        z_transformed_Eccentricity +
+#                        z_transformed_ConvexArea +
+#                        z_transformed_Extent +
+#                        z_transformed_Perimeter,
+#                      data=data_cross_validation[data_cross_validation$k != i,],
+#                      hidden=c(2, 2),
+#                      act.fct = "logistic",
+#                      linear.output = FALSE,
+#                      stepmax = 1e7)
+#   
+#   pred <- predict(model, data_cross_validation[data_cross_validation$k == i,], labels)
+#   misclassification_rate <- 1- pred[["acccuracy"]]
+#   error_list <- c(error_list, misclassification_rate)
+# }
+# 
+# error_list
 ```
 
 
 ```{r}
-mean(error_list)
+#mean(error_list)
 ```
 
 ```{r}
-mean_accuracy <- 1 - mean(error_list)
-mean_accuracy
+#mean_accuracy <- 1 - mean(error_list)
+#mean_accuracy
 ```
 
 ```{r}
-accuracy_k_fold_crossvalidation_with_z_normalization <- mean_accuracy
+#accuracy_k_fold_crossvalidation_with_z_normalization <- mean_accuracy
 ```
 
 
@@ -273,37 +273,37 @@ accuracy_k_fold_crossvalidation_with_z_normalization <- mean_accuracy
 
 
 ```{r}
-error_list <- c()
-for (i in 1:K){
-  model <- neuralnet(Class ~ z_log_transformed_Area +
-                       z_log_transformed_MajorAxisLength +
-                       z_log_transformed_MinorAxisLength +
-                       z_log_transformed_Eccentricity +
-                       z_log_transformed_ConvexArea +
-                       z_log_transformed_Extent +
-                       z_log_transformed_Perimeter,
-                     data=data_cross_validation[data_cross_validation$k != i,],
-                     hidden=c(2, 2),
-                     act.fct = "logistic",
-                     linear.output = FALSE,
-                     stepmax = 1e7)
-  
-  pred <- predict(model, data_cross_validation[data_cross_validation$k == i,], labels)
-  misclassification_rate <- 1- pred[["acccuracy"]]
-  error_list <- c(error_list, misclassification_rate)
-}
-
-error_list
+# error_list <- c()
+# for (i in 1:K){
+#   model <- neuralnet(Class ~ z_log_transformed_Area +
+#                        z_log_transformed_MajorAxisLength +
+#                        z_log_transformed_MinorAxisLength +
+#                        z_log_transformed_Eccentricity +
+#                        z_log_transformed_ConvexArea +
+#                        z_log_transformed_Extent +
+#                        z_log_transformed_Perimeter,
+#                      data=data_cross_validation[data_cross_validation$k != i,],
+#                      hidden=c(2, 2),
+#                      act.fct = "logistic",
+#                      linear.output = FALSE,
+#                      stepmax = 1e7)
+#   
+#   pred <- predict(model, data_cross_validation[data_cross_validation$k == i,], labels)
+#   misclassification_rate <- 1- pred[["acccuracy"]]
+#   error_list <- c(error_list, misclassification_rate)
+# }
+# 
+# error_list
 ```
 
 
 ```{r}
-mean(error_list)
+# mean(error_list)
 ```
 
 ```{r}
-mean_accuracy <- 1 - mean(error_list)
-mean_accuracy
+# mean_accuracy <- 1 - mean(error_list)
+# mean_accuracy
 ```
 
 ```{r}
@@ -318,16 +318,16 @@ We write all the results into a file so that we can do a summary in the evaluati
 random_forest_results <- c(accuracy_without_normalization_on_test_data,
                    accuracy_with_z_normalization_on_test_data,
                    accuracy_with_z_log_normalization_on_test_data,
-                   accuracy_k_fold_crossvalidation_without_normalization,
-                   accuracy_k_fold_crossvalidation_with_z_normalization,
-                   accuracy_k_fold_crossvalidation_with_z_log_normalization )
+                   accuracy_k_fold_crossvalidation_without_normalization)
+                  #accuracy_k_fold_crossvalidation_with_z_normalization,
+                   #accuracy_k_fold_crossvalidation_with_z_log_normalization )
 
 name <- c("without normalization on test data",
           "with z normalization on test data",
           "with z log normalization on test data",
-          "k fold crossvalidation without normalization",
-          "k fold crossvalidation with z normalization",
-          "k fold crossvalidation with z log normalization" )
+          "k fold crossvalidation without normalization")
+          #"k fold crossvalidation with z normalization",
+          #"k fold crossvalidation with z log normalization" )
 
 df <- data.frame(name, random_forest_results)
 ```
@@ -337,7 +337,7 @@ df
 ```
 
 ```{r}
-write.csv2(df, file="./dataset/results/neural_network.csv", row.names = FALSE)
+#write.csv2(df, file="./dataset/results/neural_network.csv", row.names = FALSE)
 ```
 
 
